@@ -1,0 +1,21 @@
+{
+    "name": "fg/store",
+    "description": "learn MindK",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andrey",
+            "email": "folganoid@yahoo.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "fg/frame": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Folganoid/FGframe.git"
+        }
+    ]
+}

@@ -1,0 +1,56 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "e48318ce59baf68c1172275fd7118f9d",
+    "packages": [
+        {
+            "name": "fg/frame",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Folganoid/FGframe.git",
+                "reference": "2bcae724b28aae2e6f2d5adac2570fdb9872c7ce"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Folganoid/FGframe/zipball/2bcae724b28aae2e6f2d5adac2570fdb9872c7ce",
+                "reference": "2bcae724b28aae2e6f2d5adac2570fdb9872c7ce",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Fg\\Frame\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrey",
+                    "email": "folganoid@yahoo.com"
+                }
+            ],
+            "description": "learn MindK",
+            "support": {
+                "source": "https://github.com/Folganoid/FGframe/tree/master",
+                "issues": "https://github.com/Folganoid/FGframe/issues"
+            },
+            "time": "2017-03-10 13:17:34"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "fg/frame": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
