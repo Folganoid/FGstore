@@ -11,7 +11,7 @@ $loader->addPsr4("Fg\\", dirname(__FILE__).'/../src/');
 $aaa = new \Fg\IndexController();
 $aaa->index();
 
-new \Fg\Frame\App();
-
+$app = new \Fg\Frame\App(include(__DIR__.'/../config/config.php'));
+$app->start();
 
 ?>

@@ -2,12 +2,16 @@
 
 namespace Fg;
 
+/**
+ * Class IndexController
+ * @package Fg
+ */
 class IndexController
 {
 
     public function index(){
 
-        echo '<b>Method</b>';
+        echo '<b>'.__METHOD__.'</b><br>';
     }
 }
 
