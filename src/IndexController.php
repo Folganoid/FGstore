@@ -11,7 +11,8 @@ class IndexController
 
     public function index(){
 
-        echo '<b>'.__METHOD__.'</b><br>';
+        echo '<b>' . __METHOD__ . '</b><br>';
+
     }
 }
 

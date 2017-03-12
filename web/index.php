@@ -8,9 +8,6 @@ $loader = require '../vendor/autoload.php';
 $loader->addPsr4("Fg\\", dirname(__FILE__).'/../src/');
 
 
-$aaa = new \Fg\IndexController();
-$aaa->index();
-
 $app = new \Fg\Frame\App(include(__DIR__.'/../config/config.php'));
 $app->start();
 

@@ -15,10 +15,11 @@ return [
             "action" => "getAllItems"
         ],
     "item_one" => [
-        "pattern" => "/item/{id}/color/{color}",
+        "pattern" => "/item/{id}/var/{var}",
         "method" => "GET",
         "variables" => [
             "id" => "\d+",
+            "var" => "[a-zA-Z0-9_]+"
         ],
         "controller" => "Fg\\ItemController",
         "action" => "getOneItem"
