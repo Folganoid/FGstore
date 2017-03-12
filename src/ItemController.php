@@ -9,15 +9,20 @@
 namespace Fg;
 
 
+use Fg\Frame\Controller\Controller;
+
 class ItemController
 {
 
     /**
      * All items
      */
-    public function getAllItems(){
+    public function getAllItems( $params = [], $enhanceParams = [] ){
 
-        echo '<b>'. __METHOD__ . '</b><br>';
+        echo '<br><br><br><br><b>'. __METHOD__ . '</b><br>';
+
+        $bbb = new Controller();
+        $bbb->render(__DIR__ . '/../web/pages/item_all.html.php', $params, $enhanceParams);
 
     }
 
@@ -25,11 +30,13 @@ class ItemController
      * One item
      */
 
-    public function getOneItem($id, $var){
+    public function getOneItem($params = [], $enhanceParams = [] ){
 
-        echo '<b>' . __METHOD__ . '</b><br>';
+        echo '<br><br><br><br><b>' . __METHOD__ . '</b><br>';
 
-        echo sprintf("Hi! You requested %s with %s var", $id, $var);
+        $ccc = new Controller();
+        $ccc->render(__DIR__ . '/../web/pages/item_one.html.php', $params, $enhanceParams);
+
     }
 
 }
