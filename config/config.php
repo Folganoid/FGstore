@@ -6,5 +6,6 @@
  * Time: 12:54
  */
 return [
-    "routeConfig" => include ('routing.php')
+    "routeConfig" => include('routing.php'),
+    "layersDir" => include('lrsdir.php')
 ];

@@ -11,17 +11,22 @@ namespace Fg;
 
 use Fg\Frame\Controller\Controller;
 
-class ItemController
+/**
+ * Class ItemController
+ * @package Fg
+ */
+class ItemController extends MainController
 {
 
     /**
      * All items
      */
-    public function getAllItems( $params = [], $enhanceParams = [] ){
+    public function getAllItems(array $params = [], array $enhanceParams = [])
+    {
 
-        echo '<br><br><br><br><b>'. __METHOD__ . '</b><br>';
+        echo '<br><br><br><br><b>' . __METHOD__ . '</b><br>';
 
-        $bbb = new Controller();
+        $bbb = new Controller($this->configDir);
         $bbb->render(__DIR__ . '/../web/pages/item_all.html.php', $params, $enhanceParams);
 
     }
@@ -30,11 +35,12 @@ class ItemController
      * One item
      */
 
-    public function getOneItem($params = [], $enhanceParams = [] ){
+    public function getOneItem(array $params = [], array $enhanceParams = [])
+    {
 
         echo '<br><br><br><br><b>' . __METHOD__ . '</b><br>';
 
-        $ccc = new Controller();
+        $ccc = new Controller($this->configDir);
         $ccc->render(__DIR__ . '/../web/pages/item_one.html.php', $params, $enhanceParams);
 
     }
