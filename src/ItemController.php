@@ -27,7 +27,7 @@ class ItemController extends MainController
         echo '<br><br><br><br><b>' . __METHOD__ . '</b><br>';
 
         $bbb = new Controller($this->configDir);
-        $bbb->render(__DIR__ . '/../web/pages/item_all.html.php', $params, $enhanceParams);
+        $bbb->render(__DIR__ . '/../web/pages/item_all.html.twig', $params, $enhanceParams);
 
     }
 
@@ -41,7 +41,7 @@ class ItemController extends MainController
         echo '<br><br><br><br><b>' . __METHOD__ . '</b><br>';
 
         $ccc = new Controller($this->configDir);
-        $ccc->render(__DIR__ . '/../web/pages/item_one.html.php', $params, $enhanceParams);
+        $ccc->render(__DIR__ . '/../web/pages/item_one.html.twig', $params, $enhanceParams);
 
     }
 
