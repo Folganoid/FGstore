@@ -10,7 +10,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "fg/frame": "dev-master"
+        "fg/frame": "dev-master",
+        "twig/twig": "~2.0"
     },
     "repositories": [
         {

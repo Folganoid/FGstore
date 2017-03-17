@@ -22,6 +22,6 @@ class MainController
      */
     public function __construct(array $configDir = [])
     {
-        $this->configDir = include( __DIR__ . '/../config/lrsdir.php' );
+        $this->configDir = include(ROOTDIR . '/config/lrsdir.php');
     }
 }
