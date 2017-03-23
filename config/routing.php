@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * routing rules
+ */
 return [
     "index" => [
         "pattern" => "/",

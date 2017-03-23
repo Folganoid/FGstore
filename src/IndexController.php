@@ -3,7 +3,6 @@
 namespace Fg;
 
 use Fg\Frame\Controller\Controller;
-use Fg\Frame\Validation\Validation;
 
 /**
  * Class IndexController
@@ -19,6 +18,9 @@ class IndexController extends MainController
 
         $aaa = new Controller($this->configDir);
         $aaa->render(__DIR__ . '/../web/pages/index.html.twig');
+
+
+
 
     }
 }

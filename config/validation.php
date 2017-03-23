@@ -1,5 +1,10 @@
 <?php
 
+
+/**
+ * validation rules
+ */
+
 return [
     'int_only' => '[0-9]+',
     'let_only' => '[a-zA-Z]+',

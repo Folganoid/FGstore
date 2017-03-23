@@ -8,6 +8,8 @@
 
 namespace Fg;
 
+use Fg\Frame\Validation\Validation;
+
 /**
  * Class MainController
  * @package Fg
@@ -22,6 +24,6 @@ class MainController
      */
     public function __construct(array $configDir = [])
     {
-        $this->configDir = include(ROOTDIR . '/config/lrsdir.php');
+        $this->configDir = Validation::checkConfigFile(ROOTDIR . '/config/lrsdir.php');
     }
 }
