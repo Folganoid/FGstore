@@ -27,5 +27,22 @@ return [
         "controller" => "Fg\\ItemController",
         "action" => "getOneItem"
 
-    ]
+    ],
+        "error" => //system
+        [
+            "pattern" => "/error",
+            "method" => "GET",
+            "controller" => "Fg\\ErrorController",
+            "action" => "getError"
+        ],
+        "api" =>
+        [
+            "pattern" => "/api/item/{id}",
+            "method" => "GET",
+            "controller" => "Fg\\ApiController",
+            "variables" => [
+                "id" => "\d+",
+            ],
+            "action" => "apiGetOneItem"
+        ],
 ];

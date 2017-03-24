@@ -7,7 +7,7 @@ ini_set('display_startup_errors', 1);
 $loader = require '../vendor/autoload.php';
 $loader->addPsr4("Fg\\", dirname(__FILE__) . '/../src/');
 
-include(__DIR__ . '/../config/config.php');
+require (__DIR__ . '/../config/config.php');
 
 $app = new \Fg\Frame\App();
 $app->start();

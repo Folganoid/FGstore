@@ -15,12 +15,10 @@ class IndexController extends MainController
      */
     public function index()
     {
+        $this->setViewFile(__DIR__ . '/../web/pages/index.html.twig');
 
         $aaa = new Controller($this->configDir);
-        $aaa->render(__DIR__ . '/../web/pages/index.html.twig');
-
-
-
+        $aaa->render($this->getViewFile());
 
     }
 }

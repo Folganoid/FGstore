@@ -23,8 +23,10 @@ class ItemController extends MainController
      */
     public function getAllItems(array $params = [], array $enhanceParams = [])
     {
+        $this->setViewFile(__DIR__ . '/../web/pages/item_all.html.twig');
+
         $bbb = new Controller($this->configDir);
-        $bbb->render(__DIR__ . '/../web/pages/item_all.html.twig', $params, $enhanceParams);
+        $bbb->render($this->getViewFile(), $params, $enhanceParams);
     }
 
     /**
@@ -33,8 +35,10 @@ class ItemController extends MainController
 
     public function getOneItem(array $params = [], array $enhanceParams = [])
     {
-        $ccc = new Controller($this->configDir);
-        $ccc->render(__DIR__ . '/../web/pages/item_one.html.twig', $params, $enhanceParams);
+        $this->setViewFile(__DIR__ . '/../web/pages/item_one.html.twig');
+
+        $bbb = new Controller($this->configDir);
+        $bbb->render($this->getViewFile(), $params, $enhanceParams);
     }
 
 }

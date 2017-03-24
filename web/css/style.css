@@ -3,10 +3,20 @@
 }
 
 .footer {
-    color:white;
+    color: white;
     position: fixed;
     bottom: 0px;
     background-color: #2E2E2E;
     font-size: 12px;
     width: 100%;
+}
+
+.error h1 {
+    color: red;
+    text-align: center;
+}
+
+.error h2 {
+    color: darkred;
+    text-align: center;
 }
