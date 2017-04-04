@@ -8,7 +8,7 @@ use Fg\Frame\Controller\Controller;
  * Class IndexController
  * @package Fg
  */
-class IndexController extends MainController
+class IndexController extends Controller
 {
     /**
      * index
@@ -16,9 +16,7 @@ class IndexController extends MainController
     public function index()
     {
         $this->setViewFile(__DIR__ . '/../web/pages/index.html.twig');
-
-        $aaa = new Controller($this->configDir);
-        $aaa->render($this->getViewFile());
+        $this->render($this->getViewFile());
 
     }
 }

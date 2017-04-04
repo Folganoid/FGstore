@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fg
- * Date: 24.03.17
- * Time: 12:12
- */
 
 namespace Fg;
-
 
 use Fg\Frame\Controller\Controller;
 
@@ -15,7 +8,7 @@ use Fg\Frame\Controller\Controller;
  * Class ApiController
  * @package Fg
  */
-class ApiController extends MainController
+class ApiController extends Controller
 {
     /**
      * errors
@@ -23,9 +16,7 @@ class ApiController extends MainController
     public function apiGetOneItem(array $params = [], array $enhanceParams = [])
     {
         $this->setViewFile(__DIR__ . '/../web/pages/test.json');
-
-        $aaa = new Controller($this->configDir);
-        $aaa->render($this->getViewFile(), $params, $enhanceParams);
+        $this->render($this->getViewFile(), $params, $enhanceParams);
 
     }
 }

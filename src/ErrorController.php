@@ -1,20 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fg
- * Date: 24.03.17
- * Time: 10:49
- */
 
 namespace Fg;
 
 use Fg\Frame\Controller\Controller;
 
 /**
- * Class IndexController
+ * Class ErrorController
  * @package Fg
  */
-class ErrorController extends MainController
+class ErrorController extends Controller
 {
     /**
      * errors
@@ -22,9 +16,7 @@ class ErrorController extends MainController
     public function getError(array $params = [], array $enhanceParams = [])
     {
         $this->setViewFile($this->configDir['error']);
-
-        $aaa = new Controller($this->configDir);
-        $aaa->render($this->getViewFile(), $params, $enhanceParams);
+        $this->render($this->getViewFile(), $params, $enhanceParams);
 
     }
 }

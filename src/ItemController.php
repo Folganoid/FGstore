@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fg
- * Date: 11.03.17
- * Time: 17:10
- */
 
 namespace Fg;
-
 
 use Fg\Frame\Controller\Controller;
 
@@ -15,7 +8,7 @@ use Fg\Frame\Controller\Controller;
  * Class ItemController
  * @package Fg
  */
-class ItemController extends MainController
+class ItemController extends Controller
 {
 
     /**
@@ -24,9 +17,7 @@ class ItemController extends MainController
     public function getAllItems(array $params = [], array $enhanceParams = [])
     {
         $this->setViewFile(__DIR__ . '/../web/pages/item_all.html.twig');
-
-        $bbb = new Controller($this->configDir);
-        $bbb->render($this->getViewFile(), $params, $enhanceParams);
+        $this->render($this->getViewFile(), $params, $enhanceParams);
     }
 
     /**
@@ -36,9 +27,7 @@ class ItemController extends MainController
     public function getOneItem(array $params = [], array $enhanceParams = [])
     {
         $this->setViewFile(__DIR__ . '/../web/pages/item_one.html.twig');
-
-        $bbb = new Controller($this->configDir);
-        $bbb->render($this->getViewFile(), $params, $enhanceParams);
+        $this->render($this->getViewFile(), $params, $enhanceParams);
     }
 
 }
