@@ -15,8 +15,6 @@ class ErrorController extends Controller
      */
     public function getError(array $params = [], array $enhanceParams = [])
     {
-        $this->setViewFile($this->configDir['error']);
-        $this->render($this->getViewFile(), $params, $enhanceParams);
-
+        $this->render($this->getViewFile($this->configDir['error']), $params, $enhanceParams);
     }
 }

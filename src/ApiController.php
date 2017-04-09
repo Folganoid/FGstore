@@ -15,8 +15,6 @@ class ApiController extends Controller
      */
     public function apiGetOneItem(array $params = [], array $enhanceParams = [])
     {
-        $this->setViewFile(__DIR__ . '/../web/pages/test.json');
-        $this->render($this->getViewFile(), $params, $enhanceParams);
-
+        $this->render($this->getViewFile(__DIR__ . '/../web/pages/test.json'), $params, $enhanceParams);
     }
 }
