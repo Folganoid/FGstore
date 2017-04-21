@@ -1,6 +1,6 @@
 <?php
 
-namespace Fg;
+namespace Fg\Controller;
 
 use Fg\Frame\Controller\Controller;
 

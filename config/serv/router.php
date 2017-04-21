@@ -8,24 +8,23 @@ return [
         "index" => [
             "pattern" => "/",
             "method" => "GET",
-            "controller" => "Fg\\IndexController",
+            "controller" => "Fg\\Controller\\IndexController",
             "action" => "index"
         ],
         "item_all" =>
             [
-                "pattern" => "/item",
+                "pattern" => "/items",
                 "method" => "GET",
-                "controller" => "Fg\\ItemController",
+                "controller" => "Fg\\Controller\\ItemController",
                 "action" => "getAllItems"
             ],
         "item_one" => [
-            "pattern" => "/item/{id}/var/{var}",
+            "pattern" => "/item/{id}",
             "method" => "GET",
             "variables" => [
                 "id" => "\d+",
-                "var" => "[a-zA-Z0-9_]+"
             ],
-            "controller" => "Fg\\ItemController",
+            "controller" => "Fg\\Controller\\ItemController",
             "action" => "getOneItem"
 
         ],
@@ -33,14 +32,14 @@ return [
             [
                 "pattern" => "/error",
                 "method" => "GET",
-                "controller" => "Fg\\ErrorController",
+                "controller" => "Fg\\Controller\\ErrorController",
                 "action" => "getError"
             ],
         "api" =>
             [
                 "pattern" => "/api/item/{id}",
                 "method" => "GET",
-                "controller" => "Fg\\ApiController",
+                "controller" => "Fg\\Controller\\ApiController",
                 "variables" => [
                     "id" => "\d+",
                 ],

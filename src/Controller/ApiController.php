@@ -1,6 +1,6 @@
 <?php
 
-namespace Fg;
+namespace Fg\Controller;
 
 use Fg\Frame\Controller\Controller;
 
@@ -15,6 +15,6 @@ class ApiController extends Controller
      */
     public function apiGetOneItem(array $params = [], array $enhanceParams = [])
     {
-        $this->render($this->getViewFile(__DIR__ . '/../web/pages/test.json'), $params, $enhanceParams);
+        $this->render($this->getViewFile(ROOTDIR . '/web/pages/test.json'), $params, $enhanceParams);
     }
 }
