@@ -8,4 +8,5 @@ return [
     'request' => Fg\Frame\Request\Request::class,
     'validation' => Fg\Frame\Validation\Validation::class,
     'database' => Fg\Frame\DataBase\DataBase::class,
+    'middleware' => Fg\Frame\Middleware\Middleware::class,
 ];
