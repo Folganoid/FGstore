@@ -9,4 +9,5 @@ return [
     'validation' => Fg\Frame\Validation\Validation::class,
     'database' => Fg\Frame\DataBase\DataBase::class,
     'middleware' => Fg\Frame\Middleware\Middleware::class,
+    'session' => Fg\Frame\Session\Session::class,
 ];

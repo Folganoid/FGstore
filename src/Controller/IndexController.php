@@ -26,8 +26,11 @@ class IndexController extends Controller
         //$a->delete(27);
         //$a->update(37, ["'yyyy'", 1112], ['name', 'doc']);
 
-        DIInjector::get('middleware'); //check middleware conditions
-
+        $sess = DIInjector::get('session');
+        $sess->set('user', 'sdfsdf');
+        echo $sess->get('user');
+        $sess->clearOne('user');
+        echo $sess->get('user');
     }
 }
 
