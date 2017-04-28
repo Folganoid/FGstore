@@ -6,7 +6,7 @@
 return [
     'config' => [
         'host' => 'localhost',
-        'db' => 'test_database',
+        'db' => 'fgstore',
         'user' => 'fg',
         'pass' => '5619'
     ],

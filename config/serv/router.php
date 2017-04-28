@@ -18,6 +18,16 @@ return [
                 "controller" => "Fg\\Controller\\ItemController",
                 "action" => "getAllItems"
             ],
+        "item_category" =>
+            [
+                "pattern" => "/items/category/{id}",
+                "method" => "GET",
+                "variables" => [
+                    "id" => "\d+",
+                ],
+                "controller" => "Fg\\Controller\\ItemController",
+                "action" => "getCatItems"
+            ],
         "item_one" => [
             "pattern" => "/item/{id}",
             "method" => "GET",
