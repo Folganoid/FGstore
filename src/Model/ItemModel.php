@@ -26,34 +26,23 @@ class ItemModel extends Model
     protected $tables = ['item_val_int', 'item_val_varchar', 'item_val_double', 'item_val_date'];
 
     /**
-     * @param $id
-     * @return array
-     */
-    public function getVars(int $id): array
-    {
-        $result = [];
-        for ($z = 0; $z < count($this->tables); $z++) {
-            $arr = $this->getOneVar($this->tables[$z], $id);
-            for ($i = 0; $i < count($arr); $i++) {
-                $result[$arr[$i]['name']] = $arr[$i]['value'];
-            }
-        }
-        return $result;
-    }
-
-    /**
-     * get one type data from EAV DB model
-     * @param string $table
+     * get vars by ID-iteb from EAV DB model
+     *
      * @param int $id
      * @return mixed
      */
-    public function getOneVar(string $table, int $id)
+    public function getVars(int $id)
     {
         $this->setCase('select');
-        $this->setColumns(['a.name', 'iv.value']);
-        $this->table = 'item AS i, ' . $table . ' AS iv, attribute AS a ';
-        $this->setWhere(['i.id = ' . $id, 'iv.item_id =' . $id, 'iv.attribute_id = a.id']);
+        $this->setColumns(['a.name', 'CONCAT(ivv.value, ivi.value, ivd.value, ivb.value) AS value']);
+        $this->table = 'attribute AS a 
+            LEFT OUTER JOIN item_val_int AS ivi ON (ivi.attribute_id = a.id)
+            LEFT OUTER JOIN item_val_varchar AS ivv ON (ivv.attribute_id = a.id)
+            LEFT OUTER JOIN item_val_date AS ivd ON (ivd.attribute_id = a.id)
+            LEFT OUTER JOIN item_val_double AS ivb ON (ivb.attribute_id = a.id)';
+        $this->setWhere([$id . ' IN (ivi.item_id, ivb.item_id, ivd.item_id, ivv.item_id)']);
         $this->setLimit(0);
+
         try {
             $stm = $this->db->prepare($this->build());
             $stm->execute();
@@ -61,8 +50,14 @@ class ItemModel extends Model
         } catch (BadQueryException $e) {
             echo $e->getMessage();
         }
-        return $stm->fetchAll(\PDO::FETCH_ASSOC);
+        $arrDB = $stm->fetchAll(\PDO::FETCH_ASSOC);
+        $result = [];
+        for($i=0 ; $i<count($arrDB); $i++) {
+            $result[$arrDB[$i]['name']] = $arrDB[$i]['value'];
+        }
+        return $result;
     }
+
 
     /**
      * get category tree list
@@ -107,6 +102,23 @@ class ItemModel extends Model
         $this->table = 'item';
         $this->setWhere(['category_id = ' . $id]);
         $this->setLimit(0);
+
+        try {
+            $stm = $this->db->prepare($this->build());
+            $stm->execute();
+            $this->checkErrors($stm);
+        } catch (BadQueryException $e) {
+            echo $e->getMessage();
+        }
+        return $stm->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getCatName(int $id){
+        $this->setCase('select');
+        $this->setColumns(['name', 'notice']);
+        $this->table = 'category';
+        $this->setWhere(['id = ' . $id]);
+        $this->setLimit(1);
 
         try {
             $stm = $this->db->prepare($this->build());

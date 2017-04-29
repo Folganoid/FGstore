@@ -1,27 +1,35 @@
-{% if cats|length > 0 %}
+<div class="container">
+    <div class="col-md-6">
 
-    <h3>Категории {{ id }}</h3>
-    <ul>
-        {% for cat in cats %}
-            <li>{{ cat['name'] }} - {{ cat['notice'] }} - <a
-                        href="{{ twigLink('item_category', {'id': cat['id']}) }}">link</a></li>
-        {% endfor %}
+        <h3 align="center">Категория {{ parentName['name'] }}</h3>
+        <h4 align="center">({{ parentName['notice'] }})</h4>
 
-    </ul>
+        {% if cats|length > 0 %}
+            <br>
+            <ul>
+                {% for cat in cats %}
+                    <li><b>{{ cat['name'] }}</b> ({{ cat['notice'] }}) <a class="pull-right"
+                        href="{{ twigLink('item_category', {'id': cat['id']}) }}">перейти...</a>
+                    </li>
+                {% endfor %}
+            </ul>
 
-{% endif %}
+        {% endif %}
 
+    </div>
 
-{% if items|length > 0 %}
+    <div class="col-md-6">
+        {% if items|length > 0 %}
 
-    <br>
-    <h3>Товары {{ id }}</h3>
-    <ul>
-        {% for item in items %}
-            <li>{{ item['name'] }} - {{ item['notice'] }} - <a
-                        href="{{ twigLink('item_one', {'id': item['id']}) }}">link</a></li>
-        {% endfor %}
+            <h3 align="center">Товары</h3>
+            <ul>
+                {% for item in items %}
+                    <li><b>{{ item['name'] }}</b> ({{ item['notice'] }}) <a class="pull-right"
+                        href="{{ twigLink('item_one', {'id': item['id']}) }}">перейти...</a>
+                    </li>
+                {% endfor %}
+            </ul>
 
-    </ul>
-
-{% endif %}
+        {% endif %}
+    </div>
+</div>

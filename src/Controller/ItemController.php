@@ -58,6 +58,7 @@ class ItemController extends Controller
         $model = new ItemModel();
         $categories['cats'] = $model->getCategory($params['id']);
         $categories['items'] = $model->getItemList($params['id']);
+        $categories['parentName'] = $model->getCatName($params['id'])[0];
 
         if (empty($categories)) {
             throw new DataErrorException(exit($params['id'] . ' : Data not find'));

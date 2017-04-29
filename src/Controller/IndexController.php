@@ -17,20 +17,6 @@ class IndexController extends Controller
     public function index()
     {
         $this->render($this->getViewFile(ROOTDIR . '/web/pages/index.html.twig'));
-
-        //$a = new Model();
-        //$a->setTable('test');
-        //var_dump($a->getOne(1));
-        //var_dump($a->getAll());
-        //$a->insert(['DEFAULT', "'test'", 222]);
-        //$a->delete(27);
-        //$a->update(37, ["'yyyy'", 1112], ['name', 'doc']);
-
-        $sess = DIInjector::get('session');
-        $sess->set('user', 'sdfsdf');
-        echo $sess->get('user');
-        $sess->clearOne('user');
-        echo $sess->get('user');
     }
 }
 

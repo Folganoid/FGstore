@@ -1,8 +1,11 @@
-<h2> ITEMS MAIN LIST </h2>
-<br>
-<ul>
-    {% for cat in cats %}
-        <li>{{ cat['name'] }} - {{ cat['notice'] }} - <a
-                    href="{{ twigLink('item_category', {'id': cat['id']}) }}">link</a></li>
-    {% endfor %}
-</ul>
+<div class="col-md-6">
+    <h2 align="center">Список категорий товаров</h2>
+    <br>
+    <ul>
+        {% for cat in cats %}
+            <li><b>{{ cat['name'] }}</b> ({{ cat['notice'] }}) <a class="pull-right"
+                href="{{ twigLink('item_category', {'id': cat['id']}) }}">перейти...</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
