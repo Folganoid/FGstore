@@ -38,6 +38,23 @@ return [
             "action" => "getOneItem"
 
         ],
+        "orders_all" =>
+            [
+                "pattern" => "/orders",
+                "method" => "GET",
+                "controller" => "Fg\\Controller\\OrderController",
+                "action" => "getAllOrders"
+            ],
+        "client_one" => [
+            "pattern" => "/client/{id}",
+            "method" => "GET",
+            "variables" => [
+                "id" => "\d+",
+            ],
+            "controller" => "Fg\\Controller\\ClientController",
+            "action" => "getOneClient"
+        ],
+
         "error" => //system
             [
                 "pattern" => "/error",

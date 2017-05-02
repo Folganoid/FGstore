@@ -20,3 +20,7 @@
     color: darkred;
     text-align: center;
 }
+
+.ordertable tr td{
+    padding: 3px;
+}

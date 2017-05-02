@@ -8,9 +8,6 @@
 
 namespace Fg\Model;
 
-use Fg\Frame\Model\Model;
-use Fg\Frame\Exceptions\BadQueryException;
-
 /**
  * Class ApiModel
  * @package Fg\Model

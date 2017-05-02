@@ -3,7 +3,6 @@
 namespace Fg\Controller;
 
 use Fg\Frame\Controller\Controller;
-use Fg\Frame\DI\DIInjector;
 
 /**
  * Class IndexController

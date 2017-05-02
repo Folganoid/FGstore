@@ -1,0 +1,26 @@
+<h3>Таблица заказов</h3>
+
+<table border="1" class="ordertable">
+    <tr>
+        <td>№</td>
+        <td>Назв. товара</td>
+        <td>№ товара</td>
+        <td>Имя клиента</td>
+        <td>Статус заказа</td>
+        <td>Дата отправки</td>
+        <td>Дата получения</td>
+    </tr>
+
+    {% for var in orderArr %}
+
+        <tr>
+            <td>{{ var['id'] }}</td>
+            <td><a href="{{ twigLink('item_one', {'id': var['item_id']}) }}">{{ var['item_name'] }}</a></td>
+            <td>{{ var['item_id'] }}</td>
+            <td><a href="{{ twigLink('client_one', {'id': var['client_id']}) }}">{{ var['client'] }}</a></td>
+            <td>{{ var['status'] }}</td>
+            <td>{{ var['date_send'] }}</td>
+            <td>{{ var['date_recieve'] }}</td>
+        </tr>
+    {% endfor %}
+</table>

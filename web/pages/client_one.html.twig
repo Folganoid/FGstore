@@ -1,0 +1,35 @@
+<h3>Клиент ID:{{ id }} </h3>
+<br>
+<ul>
+    <li>Имя: {{ name }}</li>
+    <li>Фамилия: {{ surname }}</li>
+    <li>email: {{ email }}</li>
+    <li>Категория: {{ rank }}</li>
+    <li>Телефон: {{ telnumber }}</li>
+    <li>адрес: {{ address }}</li>
+    <li>примечания: {{ notice }}</li>
+</ul>
+<br>
+<h3>Заказы:</h3>
+<br>
+<table border="1" class="ordertable">
+    <tr>
+        <td>№</td>
+        <td>Назв. товара</td>
+        <td>Статус заказа</td>
+        <td>Дата отправки</td>
+        <td>Дата получения</td>
+    </tr>
+
+    {% for var in orders %}
+
+        <tr>
+            <td>{{ var['id'] }}</td>
+            <td><a href="{{ twigLink('item_one', {'id': var['item_id']}) }}">{{ var['item_name'] }}</a></td>
+
+            <td>{{ var['status'] }}</td>
+            <td>{{ var['date_send'] }}</td>
+            <td>{{ var['date_recieve'] }}</td>
+        </tr>
+    {% endfor %}
+</table>

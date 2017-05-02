@@ -5,7 +5,7 @@ namespace Fg\Controller;
 use Fg\Frame\Controller\Controller;
 use Fg\Frame\Exceptions\DataErrorException;
 use Fg\Model\ItemModel;
-use Fg\Frame\DI\DIInjector;
+
 
 /**
  * Class ItemController
