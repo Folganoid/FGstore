@@ -26,11 +26,11 @@ class OrderModel extends Model
     public function getOrdersAll()
     {
         $this->setCase('select');
-        $this->setColumns(["o.id", "i.name AS item_name", "i.id AS item_id", "CONCAT(c.name, ' ', c.surname) AS client", "c.id AS client_id", "os.status", "os.date_send", "os.date_recieve"]);
+        $this->setColumns(["o.id", "i.name AS item_name", "i.id AS item_id", "CONCAT(c.name, ' ', c.surname) AS client", "c.id AS client_id", "os.date_order", "os.status", "os.date_send", "os.date_receive", "o.order_status_id"]);
         $this->setWhere(['o.item_id = i.id', 'o.order_status_id = os.id', 'o.client_id = c.id']);
+        $this->setOrderBy(['os.date_order DESC']);
         $this->setLimit(0);
 
         return $this->executeQuery(true, true);
-
     }
 }

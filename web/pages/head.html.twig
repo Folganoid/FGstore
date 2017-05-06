@@ -29,7 +29,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="{{ twigLink('index') }}"><span
-                        class="glyphicon glyphicon-shopping-cart"></span></a>
+                        class="glyphicon glyphicon-home"></span></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -38,11 +38,27 @@
                 <li><a href="{{ twigLink('api', {'id': 2}) }}">test API<span
                                 class="sr-only">(current)</span></a></li>
                 <li><a href="{{ twigLink('item_all') }}">CATALOG</a></li>
-                <li><a href="{{ twigLink('orders_all') }}">ORDERS</a></li>
+                {% if SESSION_rank >= 8 %}
+                    <li>
+                        <a href="{{ twigLink('orders_all') }}">ORDERS</a>
+                    </li>
+                {% endif %}
 
+                {% if SESSION_rank >= 10 %}
+                    <li>
+                        <a href="{{ twigLink('client_all') }}">CLIENTS</a>
+                    </li>
+                {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">INFO</a></li>
+                <li>
+                    {% if not SESSION_id %}
+                        <a href="{{ twigLink('login') }}">LOGIN</a>
+                    {% else %}
+                        <a href="{{ twigLink('client_one', {'id': SESSION_id}) }}">
+                            <span class="glyphicon glyphicon-user"></span> {{ SESSION_login }}</a>
+                    {% endif %}
+                </li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

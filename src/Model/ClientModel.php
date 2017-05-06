@@ -27,7 +27,7 @@ class ClientModel extends Model
     public function getOrdersAll(int $id)
     {
         $this->setCase('select');
-        $this->setColumns(["o.id", "i.name AS item_name", "i.id AS item_id", "os.status", "os.date_send", "os.date_recieve"]);
+        $this->setColumns(["o.id", "i.name AS item_name", "i.id AS item_id", "os.status", "os.date_send", "os.date_receive"]);
         $this->table = 'orders AS o, item AS i, orders_status AS os, client AS c';
         $this->setWhere(['o.item_id = i.id', 'o.order_status_id = os.id', 'o.client_id = c.id', 'o.client_id=' . $id]);
         $this->setLimit(0);

@@ -1,35 +1,42 @@
-<h3>Клиент ID:{{ id }} </h3>
+<h3>{{ name }} {{ surname }} </h3>
+
+<form method="POST" action="{{ twigLink('logout') }}">
+    <button type="submit" name="logout">LOG OUT</button>
+</form>
+
 <br>
 <ul>
-    <li>Имя: {{ name }}</li>
-    <li>Фамилия: {{ surname }}</li>
-    <li>email: {{ email }}</li>
-    <li>Категория: {{ rank }}</li>
-    <li>Телефон: {{ telnumber }}</li>
-    <li>адрес: {{ address }}</li>
-    <li>примечания: {{ notice }}</li>
+    <li>Login: <b>{{ login }}</b></li>
+    <li>email: <b>{{ email }}</b></li>
+    <li>Rank: <b>{{ rank }}</b></li>
+    <li>Tel.number: <b>{{ telnumber }}</b></li>
+    <li>address: <b>{{ address }}</b></li>
+    <li>notice: <b>{{ notice }}</b></li>
 </ul>
-<br>
-<h3>Заказы:</h3>
-<br>
-<table border="1" class="ordertable">
-    <tr>
-        <td>№</td>
-        <td>Назв. товара</td>
-        <td>Статус заказа</td>
-        <td>Дата отправки</td>
-        <td>Дата получения</td>
-    </tr>
 
-    {% for var in orders %}
-
-        <tr>
-            <td>{{ var['id'] }}</td>
-            <td><a href="{{ twigLink('item_one', {'id': var['item_id']}) }}">{{ var['item_name'] }}</a></td>
-
-            <td>{{ var['status'] }}</td>
-            <td>{{ var['date_send'] }}</td>
-            <td>{{ var['date_recieve'] }}</td>
+{% if orders|length > 0 %}
+    <h3>Orders:</h3>
+    <br>
+    <table border="1" class="ordertable">
+        <tr align="center">
+            <td><b>ID</b></td>
+            <td><b>Item name</b></td>
+            <td><b>Order status</b></td>
+            <td><b>Send date</b></td>
+            <td><b>Receive date</b></td>
         </tr>
-    {% endfor %}
-</table>
+
+        {% for var in orders %}
+
+            <tr>
+                <td>{{ var['id'] }}</td>
+                <td><a href="{{ twigLink('item_one', {'id': var['item_id']}) }}">{{ var['item_name'] }}</a></td>
+
+                <td>{{ var['status'] }}</td>
+                <td>{{ var['date_send'] }}</td>
+                <td>{{ var['date_receive'] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br><br>
+{% endif %}

@@ -1,33 +1,30 @@
-<div class="col-md-6">
-
-    <h3 align="center">Категория {{ parentName['name'] }}</h3>
+<div class="col-xs-1 col-md-3"></div>
+<div class="col-xs-10 col-md-6">
+    <h3 align="center">Category {{ parentName['name'] }}</h3>
     <h4 align="center">({{ parentName['notice'] }})</h4>
 
     {% if cats|length > 0 %}
         <br>
         <ul>
             {% for cat in cats %}
-                <li><b>{{ cat['name'] }}</b> ({{ cat['notice'] }}) <a class="pull-right"
-                    href="{{ twigLink('item_category', {'id': cat['id']}) }}">перейти...</a>
+                <li><b>{{ cat['name'] }}</b> ({{ cat['notice'] }})
+                    <a class="pull-right"
+                       href="{{ twigLink('item_category', {'id': cat['id']}) }}">view...</a>
                 </li>
             {% endfor %}
         </ul>
-
     {% endif %}
 
-</div>
-
-<div class="col-md-6">
     {% if items|length > 0 %}
-
-        <h3 align="center">Товары</h3>
+        <h3 align="center">Items</h3>
         <ul>
             {% for item in items %}
-                <li><b>{{ item['name'] }}</b> ({{ item['notice'] }}) <a class="pull-right"
-                    href="{{ twigLink('item_one', {'id': item['id']}) }}">перейти...</a>
+                <li><b>{{ item['name'] }}</b> ({{ item['notice'] }})
+                    <a class="pull-right"
+                       href="{{ twigLink('item_one', {'id': item['id']}) }}">view...</a>
                 </li>
             {% endfor %}
         </ul>
-
     {% endif %}
 </div>
+<div class="col-xs-1 col-md-3"></div>

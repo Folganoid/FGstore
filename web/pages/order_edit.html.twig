@@ -1,0 +1,23 @@
+<h3>EDIT ORDER with ID: {{ id }}</h3>
+
+<form method="POST" action="{{ twigLink('order_edit_exec') }}">
+    <table>
+        <tr>
+            <td>Order status :</td>
+            <td><input name="status" value="{{ status }}" /></td>
+        </tr>
+        <tr>
+            <td>Send date :</td>
+            <td><input name="send" value="{{ date_send }}" /></td>
+        </tr>
+        <tr>
+            <td>Receive date :</td>
+            <td><input name="receive" value="{{ date_receive }}" /></td>
+        </tr>
+    </table>
+    <input name="id" type="hidden" value="{{ id }}" />
+    <br>
+    <button type="submit" name="edit">Apply changes</button>
+    <br><br>
+    <button type="submit" name="delete">Delete order</button>
+</form>

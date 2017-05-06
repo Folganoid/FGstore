@@ -9,7 +9,8 @@
 return [
     '200' => 'Ok',
     '301' => 'Moved',
-    '401' => 'Access denied',
+    '401' => 'Unauthorized',
+    '403' => 'Forbidden',
     '404' => 'Not found',
     '500' => 'Server error'
 ];

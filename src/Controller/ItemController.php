@@ -4,6 +4,9 @@ namespace Fg\Controller;
 
 use Fg\Frame\Controller\Controller;
 use Fg\Frame\Exceptions\DataErrorException;
+use Fg\Frame\Response\RedirectResponse;
+use Fg\Frame\Router\Router;
+use Fg\Frame\Validation\Validation;
 use Fg\Model\ItemModel;
 
 
@@ -53,7 +56,8 @@ class ItemController extends Controller
      * @param array $enhanceParams
      * @throws DataErrorException
      */
-    public function getCatItems(array $params = [], array $enhanceParams = []) {
+    public function getCatItems(array $params = [], array $enhanceParams = [])
+    {
 
         $model = new ItemModel();
         $categories['cats'] = $model->getCategory($params['id']);
@@ -63,9 +67,34 @@ class ItemController extends Controller
         if (empty($categories)) {
             throw new DataErrorException(exit($params['id'] . ' : Data not find'));
         }
-
         $this->render($this->getViewFile(ROOTDIR . '/web/pages/item_cat.html.twig'), $categories, $enhanceParams);
+    }
 
+    /**
+     * add item in orders & orders_status table
+     *
+     */
+    public function itemBuy()
+    {
+
+        $user = Validation::entrySecure($_POST['user_id']);
+        $item = Validation::entrySecure($_POST['item_id']);
+
+        if (!$user || !$item) {
+            throw new \Exception(exit('Invalid entry DATA.'));
+        }
+
+        $model = new ItemModel();
+        $model->setTable('orders_status');
+        $model->insert(["'обрабатывается'", "NOW()"], ['status', 'date_order']);
+        $model->setReturning('id');
+        $order_status_id = $model->executeQuery(true)['id'];
+
+        $model->setTable('orders');
+        $model->insert([$item, $order_status_id, $user], ['item_id', 'order_status_id', 'client_id']);
+        $model->executeQuery();
+
+        new RedirectResponse(Router::getLink('client_one', ['id' => $user]));
     }
 
 }

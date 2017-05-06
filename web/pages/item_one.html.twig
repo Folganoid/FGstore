@@ -1,4 +1,4 @@
-<h3>Изделие №{{ id }} </h3>
+<h3>Item №{{ id }} </h3>
 <br>
 <ul>
     <li>Наименование: {{ name }}</li>
@@ -15,5 +15,12 @@
 
 </ul>
 
-<button>Купить прямо сейчас</button>
+{% if SESSION_id %}
+<form method="POST" action="{{ twigLink('item_buy') }}">
+    <input type="hidden" name="item_id" value = "{{ id }}"/>
+    <input type="hidden" name="user_id" value = "{{ SESSION_id }}"/>
+    <button type="submit">BUY RIGHT NOW</button>
+</form>
+{% endif %}
+
 
