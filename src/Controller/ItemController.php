@@ -8,6 +8,8 @@ use Fg\Frame\Response\RedirectResponse;
 use Fg\Frame\Router\Router;
 use Fg\Frame\Validation\Validation;
 use Fg\Model\ItemModel;
+use Fg\Frame\DI\DIInjector;
+use Fg\Frame\Exceptions\AccessDeniedException;
 
 
 /**
@@ -76,25 +78,41 @@ class ItemController extends Controller
      */
     public function itemBuy()
     {
-
         $user = Validation::entrySecure($_POST['user_id']);
-        $item = Validation::entrySecure($_POST['item_id']);
 
-        if (!$user || !$item) {
+        if (!$user) {
             throw new \Exception(exit('Invalid entry DATA.'));
         }
 
-        $model = new ItemModel();
-        $model->setTable('orders_status');
-        $model->insert(["'обрабатывается'", "NOW()"], ['status', 'date_order']);
-        $model->setReturning('id');
-        $order_status_id = $model->executeQuery(true)['id'];
+        $secure = DIInjector::get('secure');
+        if ($secure->checkAllow('client_private') || $secure->checkOwner($user)) {
 
-        $model->setTable('orders');
-        $model->insert([$item, $order_status_id, $user], ['item_id', 'order_status_id', 'client_id']);
+        $model = new ItemModel();
+        $model->setTable('basket');
+        $model->setCase('select');
+        $model->setWhere(['client_id = '.$user]);
+
+        $basket = $model->getAll();
+
+        for ($i=0; $i<count($basket); $i++ ) {
+            $model->setTable('orders_status');
+            $model->insert(["'обрабатывается'", "NOW()"], ['status', 'date_order']);
+            $model->setReturning('id');
+            $order_status_id = $model->executeQuery(true)['id'];
+            $model->setTable('orders');
+            $model->insert([$basket[$i]['item_id'], $order_status_id, $user], ['item_id', 'order_status_id', 'client_id']);
+            $model->executeQuery();
+        }
+
+        $model->setTable('basket');
+        $model->setCase('delete');
+        $model->setWhere(['client_id ='.$user]);
         $model->executeQuery();
 
         new RedirectResponse(Router::getLink('client_one', ['id' => $user]));
+        } else {
+            throw new AccessDeniedException('Access denied');
+        }
     }
 
 }

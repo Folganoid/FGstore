@@ -75,6 +75,27 @@ return [
             "controller" => "Fg\\Controller\\ClientController",
             "action" => "getOneClient"
         ],
+        "basket" => [
+            "pattern" => "/basket/{id}",
+            "method" => "GET",
+            "variables" => [
+                "id" => "\d+",
+            ],
+            "controller" => "Fg\\Controller\\BasketController",
+            "action" => "getBasketList"
+        ],
+        "basket_add" => [
+            "pattern" => "/basket/add",
+            "method" => "POST",
+            "controller" => "Fg\\Controller\\BasketController",
+            "action" => "basketAdd"
+        ],
+        "basket_del" => [
+            "pattern" => "/basket/del",
+            "method" => "POST",
+            "controller" => "Fg\\Controller\\BasketController",
+            "action" => "basketDel"
+        ],
         "client_all" => [
             "pattern" => "/clients",
             "method" => "GET",
@@ -118,6 +139,26 @@ return [
                     "id" => "\d+",
                 ],
                 "action" => "apiGetOneItem"
+            ],
+        "api_basket" =>
+            [
+                "pattern" => "/api/basket/{id}",
+                "method" => "POST",
+                "controller" => "Fg\\Controller\\ApiController",
+                "variables" => [
+                    "id" => "\d+",
+                ],
+                "action" => "apiGetBasketCount"
+            ],
+        "api_basket_list" =>
+            [
+                "pattern" => "/api/basket/list/{id}",
+                "method" => "POST",
+                "controller" => "Fg\\Controller\\ApiController",
+                "variables" => [
+                    "id" => "\d+",
+                ],
+                "action" => "apiGetBasketList"
             ]
     ]
 ];

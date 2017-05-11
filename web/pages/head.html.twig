@@ -11,6 +11,7 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <script src="/js/jquery-3.2.0.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/common.js"></script>
 
     <!-- my css -->
     <link href="/css/style.css" rel="stylesheet">
@@ -35,8 +36,6 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="{{ twigLink('api', {'id': 2}) }}">test API<span
-                                class="sr-only">(current)</span></a></li>
                 <li><a href="{{ twigLink('item_all') }}">CATALOG</a></li>
                 {% if SESSION_rank >= 8 %}
                     <li>
@@ -51,6 +50,15 @@
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
+
+                {% if SESSION_id %}
+                <li>
+                    <p id="bsktvar" class="hidden">{{ SESSION_id }}</p>
+                    <a href="{{ twigLink('basket', {'id': SESSION_id}) }}"><span class="glyphicon glyphicon-shopping-cart"></span> BASKET <span id="basket"></span></a>
+                </li>
+                {% endif %}
+
+
                 <li>
                     {% if not SESSION_id %}
                         <a href="{{ twigLink('login') }}">LOGIN</a>

@@ -1,0 +1,11 @@
+<script src="/js/basket.js"></script>
+<h3>YOUR BASKET</h3>
+
+<table border="1" class="ordertable" id="basket_table"></table>
+<h4 id="basket_msg"></h4>
+
+    <form id="basket_send_but" class="hidden" method="POST" action="{{ twigLink('item_buy') }}">
+        <br><br>
+        <input type="hidden" name="user_id" value="{{ SESSION_id }}"/>
+        <button type="submit">SEND THE ORDER</button>
+    </form>

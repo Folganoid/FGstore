@@ -14,7 +14,7 @@
     <li><b>цена: {{ цена }} $</b></li>
 
 </ul>
-
+{#
 {% if SESSION_id %}
 <form method="POST" action="{{ twigLink('item_buy') }}">
     <input type="hidden" name="item_id" value = "{{ id }}"/>
@@ -23,4 +23,12 @@
 </form>
 {% endif %}
 
+#}
 
+{% if SESSION_id %}
+<form method="POST" action="{{ twigLink('basket_add') }}">
+    <input type="hidden" name="item_id" value = "{{ id }}"/>
+    <input type="hidden" name="user_id" value = "{{ SESSION_id }}"/>
+    <button type="submit">ADD TO YOUR BASKET</button>
+</form>
+{% endif %}
