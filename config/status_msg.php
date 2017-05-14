@@ -9,6 +9,7 @@
 return [
     '200' => 'Ok',
     '301' => 'Moved',
+    '400' => 'Bad request',
     '401' => 'Unauthorized',
     '403' => 'Forbidden',
     '404' => 'Not found',

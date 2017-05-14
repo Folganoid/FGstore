@@ -5,12 +5,9 @@
  */
 return [
     "config" => [
-        "index" => [
-            "pattern" => "/",
-            "method" => "GET",
-            "controller" => "Fg\\Controller\\IndexController",
-            "action" => "index"
-        ],
+
+// ============== Item ===================
+
         "item_all" =>
             [
                 "pattern" => "/items",
@@ -43,6 +40,9 @@ return [
             "controller" => "Fg\\Controller\\ItemController",
             "action" => "itemBuy"
         ],
+
+// ============== Order ===================
+
         "orders_all" =>
             [
                 "pattern" => "/orders",
@@ -66,21 +66,12 @@ return [
                 "controller" => "Fg\\Controller\\OrderController",
                 "action" => "orderEditExec"
             ],
-        "client_one" => [
-            "pattern" => "/client/{id}",
-            "method" => "GET",
-            "variables" => [
-                "id" => "\d+",
-            ],
-            "controller" => "Fg\\Controller\\ClientController",
-            "action" => "getOneClient"
-        ],
+
+// ============== Basket ===================
+
         "basket" => [
-            "pattern" => "/basket/{id}",
+            "pattern" => "/basket",
             "method" => "GET",
-            "variables" => [
-                "id" => "\d+",
-            ],
             "controller" => "Fg\\Controller\\BasketController",
             "action" => "getBasketList"
         ],
@@ -96,19 +87,24 @@ return [
             "controller" => "Fg\\Controller\\BasketController",
             "action" => "basketDel"
         ],
+
+// ============== Client ===================
+
+        "client_one" => [
+            "pattern" => "/client/{id}",
+            "method" => "GET",
+            "variables" => [
+                "id" => "\d+",
+            ],
+            "controller" => "Fg\\Controller\\ClientController",
+            "action" => "getOneClient"
+        ],
         "client_all" => [
             "pattern" => "/clients",
             "method" => "GET",
             "controller" => "Fg\\Controller\\ClientController",
             "action" => "getAllClients"
         ],
-        "login" =>
-            [
-                "pattern" => "/login",
-                "method" => "GET",
-                "controller" => "Fg\\Controller\\LoginController",
-                "action" => "login"
-            ],
         "logout" =>
             [
                 "pattern" => "/logout",
@@ -123,13 +119,16 @@ return [
                 "controller" => "Fg\\Controller\\LoginController",
                 "action" => "auth"
             ],
-        "error" => //system
+        "reg" =>
             [
-                "pattern" => "/error",
-                "method" => "GET",
-                "controller" => "Fg\\Controller\\ErrorController",
-                "action" => "getError"
+                "pattern" => "/reg",
+                "method" => "POST",
+                "controller" => "Fg\\Controller\\LoginController",
+                "action" => "reg"
             ],
+
+// ============== API ===================
+
         "api" =>
             [
                 "pattern" => "/api/item/{id}",
@@ -159,6 +158,22 @@ return [
                     "id" => "\d+",
                 ],
                 "action" => "apiGetBasketList"
+            ],
+
+// ============== System ===================
+
+        "index" => [
+            "pattern" => "/",
+            "method" => "GET",
+            "controller" => "Fg\\Controller\\IndexController",
+            "action" => "index"
+        ],
+        "error" =>
+            [
+                "pattern" => "/error",
+                "method" => "GET",
+                "controller" => "Fg\\Controller\\ErrorController",
+                "action" => "getError"
             ]
     ]
 ];

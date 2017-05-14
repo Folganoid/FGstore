@@ -1,8 +1,7 @@
-<h3>Item №{{ id }} </h3>
-<br>
+<h3><b>{{ name }}</b></h3>
+<h4>{{ notice }}</h4>
 <ul>
-    <li>Наименование: {{ name }}</li>
-    <li>примечание: {{ notice }}</li>
+    <li>Item №: {{ id }}</li>
     <li>цвет: {{ цвет }}</li>
     <li>вес: {{ вес }} кг</li>
 
@@ -11,24 +10,32 @@
     {% endif %}
 
     <li>дата выпуска: {{ дата }}</li>
-    <li><b>цена: {{ цена }} $</b></li>
-
 </ul>
-{#
-{% if SESSION_id %}
-<form method="POST" action="{{ twigLink('item_buy') }}">
-    <input type="hidden" name="item_id" value = "{{ id }}"/>
-    <input type="hidden" name="user_id" value = "{{ SESSION_id }}"/>
-    <button type="submit">BUY RIGHT NOW</button>
-</form>
-{% endif %}
-
-#}
+<h4><b>Цена: {{ цена }} $</b></h4>
+<br>
 
 {% if SESSION_id %}
-<form method="POST" action="{{ twigLink('basket_add') }}">
-    <input type="hidden" name="item_id" value = "{{ id }}"/>
-    <input type="hidden" name="user_id" value = "{{ SESSION_id }}"/>
-    <button type="submit">ADD TO YOUR BASKET</button>
-</form>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Buy right now
+</button>
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center" id="gridSystemModalLabel">Confirm the action</h4>
+            </div>
+            <br>
+            <form class="text-center" method="POST" action="{{ twigLink('basket_add') }}">
+                <input type="hidden" name="item_id" value="{{ id }}"/>
+                <input type="hidden" name="user_id" value="{{ SESSION_id }}"/>
+                <button class="btn btn-primary" type="submit">ADD TO MY BASKET</button>
+            </form>
+            <br>
+        </div>
+    </div>
+</div>
+
 {% endif %}

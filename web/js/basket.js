@@ -52,17 +52,18 @@ $(document).ready(function () {
             bodyTable = "";
 
             for (i = 0; i < json.length; i++) {
-                bodyTable += "<tr><td><a href='/item/"+ json[i]['item_id'] +"'>" +
+                bodyTable += "<tr class='basket_row'><td><a href='/item/"+ json[i]['item_id'] +"'>" +
                     json[i]['name'] +
                     "</a></td><td>" + json[i]['notice'] +
-                    "</td><td><b>" +
+                    "</td><td><span class='price pull-right'>" +
                     json[i]['price'] +
-                    " $</b></td><td><button class='basket_remove' value='" +
+                    " $</span></td><td><button class='basket_remove btn btn-danger btn-xs' title='Remove' value='" +
                     json[i]['id'] +
-                    "'>REMOVE</button></td></tr>";
+                    "'>X</button></td></tr>"+
+                    "<tr><td></td></tr>";
             }
             $('#basket_table').append(headTable + bodyTable);
-            $('#basket_send_but').attr('class', '');
+            $('#basket_send_but').attr('class', 'btn btn-primary');
         }
 
         else {

@@ -1,7 +1,7 @@
 <h3>{{ name }} {{ surname }} </h3>
 
 <form method="POST" action="{{ twigLink('logout') }}">
-    <button type="submit" name="logout">LOG OUT</button>
+    <button class="btn btn-danger" type="submit" name="logout">LOG OUT</button>
 </form>
 
 <br>
@@ -17,9 +17,8 @@
 {% if orders|length > 0 %}
     <h3>Orders:</h3>
     <br>
-    <table border="1" class="ordertable">
-        <tr align="center">
-            <td><b>ID</b></td>
+    <table border="1" class="ordertable text-center">
+        <tr align="center" height="40px">
             <td><b>Item name</b></td>
             <td><b>Order status</b></td>
             <td><b>Send date</b></td>
@@ -29,14 +28,14 @@
         {% for var in orders %}
 
             <tr>
-                <td>{{ var['id'] }}</td>
-                <td><a href="{{ twigLink('item_one', {'id': var['item_id']}) }}">{{ var['item_name'] }}</a></td>
-
+                <td><a class="pull-left" href="{{ twigLink('item_one', {'id': var['item_id']}) }}">{{ var['item_name'] }}</a></td>
                 <td>{{ var['status'] }}</td>
-                <td>{{ var['date_send'] }}</td>
-                <td>{{ var['date_receive'] }}</td>
+                <td><b class="color_red">{{ var['date_send'] }}</b></td>
+                <td><b class="color_green">{{ var['date_receive'] }}</b></td>
             </tr>
         {% endfor %}
     </table>
     <br><br>
+    {% else %}
+        <h3>You don't have any orders...</h3>
 {% endif %}

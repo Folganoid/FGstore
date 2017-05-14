@@ -1,7 +1,7 @@
 <h3>ORDER list</h3>
 
-<table border="1" class="ordertable">
-    <tr align="center">
+<table border="1" class="ordertable text-center">
+    <tr align="center" height="40px">
         <td><b>ID</b></td>
         <td><b>Item name</b></td>
         <td><b>Item ID</b></td>
@@ -10,20 +10,21 @@
         <td><b>Order status</b></td>
         <td><b>Send date</b></td>
         <td><b>Receive date</b></td>
+        <td><b>Edit / Delete</b></td>
     </tr>
 
     {% for var in orderArr %}
 
         <tr>
             <td>{{ var['id'] }}</td>
-            <td><a href="{{ twigLink('item_one', {'id': var['item_id']}) }}">{{ var['item_name'] }}</a></td>
+            <td><a  class="pull-left" href="{{ twigLink('item_one', {'id': var['item_id']}) }}">{{ var['item_name'] }}</a></td>
             <td>{{ var['item_id'] }}</td>
-            <td><a href="{{ twigLink('client_one', {'id': var['client_id']}) }}">{{ var['client'] }}</a></td>
+            <td><a class="pull-left" href="{{ twigLink('client_one', {'id': var['client_id']}) }}">{{ var['client'] }}</a></td>
             <td>{{ var['date_order'] }}</td>
             <td>{{ var['status'] }}</td>
-            <td>{{ var['date_send'] }}</td>
-            <td>{{ var['date_receive'] }}</td>
-            <td><a href="{{ twigLink('order_edit', {'id': var['order_status_id']}) }}">EDIT ORDER STATUS</a></td>
+            <td><b class="color_red">{{ var['date_send'] }}</b></td>
+            <td><b class="color_green">{{ var['date_receive'] }}</b></td>
+            <td><a class="btn btn-default btn-xs" href="{{ twigLink('order_edit', {'id': var['order_status_id']}) }}">EDIT Order</a></td>
         </tr>
     {% endfor %}
 </table>

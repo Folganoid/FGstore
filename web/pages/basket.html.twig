@@ -1,11 +1,26 @@
 <script src="/js/basket.js"></script>
 <h3>YOUR BASKET</h3>
-
-<table border="1" class="ordertable" id="basket_table"></table>
+<br>
+<table class="baskettable" id="basket_table"></table>
 <h4 id="basket_msg"></h4>
 
-    <form id="basket_send_but" class="hidden" method="POST" action="{{ twigLink('item_buy') }}">
-        <br><br>
-        <input type="hidden" name="user_id" value="{{ SESSION_id }}"/>
-        <button type="submit">SEND THE ORDER</button>
-    </form>
+<button id="basket_send_but" type="button" class="hidden btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Send my ORDER
+</button>
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center" id="gridSystemModalLabel">Confirm the action</h4>
+            </div>
+            <br>
+            <form method="POST" action="{{ twigLink('item_buy') }}">
+                <input type="hidden" name="user_id" value="{{ SESSION_id }}"/>
+                <button class="btn btn-primary center-block" type="submit">AGREE</button>
+            </form>
+            <br>
+        </div>
+    </div>
+</div>

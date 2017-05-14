@@ -1,31 +1,30 @@
 <script src="/js/order_edit.js"></script>
 
 <h3>EDIT ORDER with ID: {{ id }}</h3>
-
+<br>
 <form method="POST" action="{{ twigLink('order_edit_exec') }}">
-    <table>
+    <table class="ordertable">
         <tr>
-            <td>Order status :</td>
+            <td><b>Order status : </b></td>
             <td><input id="order_status" name="status" value="{{ status }}"/></td>
         </tr>
         <tr>
-            <td>Send date :</td>
+            <td><b>Send date : </b></td>
             <td><input id="order_send_date" name="send" value="{{ date_send }}"/></td>
             <td>
-                <button type="button" id="but_fill_send">Fill to SEND</button>
+                <button class="btn btn-sm btn-primary" type="button" id="but_fill_send">Fill to SEND</button>
             </td>
         </tr>
         <tr>
-            <td>Receive date :</td>
+            <td><b>Receive date : </b></td>
             <td><input id="order_rec_date" name="receive" value="{{ date_receive }}"/></td>
             <td>
-                <button type="button" id="but_fill_rec">Fill to RECEIVE</button>
+                <button class="btn btn-sm btn-primary" type="button" id="but_fill_rec">Fill to RECEIVE</button>
             </td>
         </tr>
     </table>
     <input name="id" type="hidden" value="{{ id }}"/>
     <br>
-    <button type="submit" name="edit">Apply changes</button>
-    <br><br>
-    <button type="submit" name="delete">Delete order</button>
+    <button class="btn btn-primary" type="submit" name="edit">Apply changes</button>
+    <button class="btn btn-danger" type="submit" name="delete">Delete order</button>
 </form>

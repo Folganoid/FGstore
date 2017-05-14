@@ -22,5 +22,29 @@
 }
 
 .ordertable tr td{
-    padding: 3px;
+    padding: 5px;
+}
+
+.modal {
+    padding-top: 10%;
+}
+
+.basket_row {
+    background-color: lightgrey;
+}
+
+.baskettable tr td{
+    padding: 5px;
+}
+
+.price {
+    font-weight: bold;
+    color: darkred;
+}
+
+.color_red {
+    color: red;
+}
+.color_green {
+    color: green;
 }

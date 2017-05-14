@@ -31,16 +31,9 @@ class BasketController extends Controller
      * @param array $enhanceParams
      * @throws DataErrorException
      */
-    public function getBasketList(array $params = [], array $enhanceParams = [])
+    public function getBasketList()
     {
-        $secure = DIInjector::get('secure');
-        if ($secure->checkAllow('client_private') || $secure->checkOwner($params['id'])) {
-            $model = new BasketModel();
-            $basket['list'] = $model->getBasketList($params['id']);
-            $this->render($this->getViewFile(ROOTDIR . '/web/pages/basket.html.twig'), $basket, $enhanceParams);
-        } else {
-            throw new AccessDeniedException('Access denied');
-        }
+        $this->render($this->getViewFile(ROOTDIR . '/web/pages/basket.html.twig'));
     }
 
     /**

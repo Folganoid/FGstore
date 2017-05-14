@@ -96,7 +96,7 @@ class ItemController extends Controller
 
         for ($i=0; $i<count($basket); $i++ ) {
             $model->setTable('orders_status');
-            $model->insert(["'обрабатывается'", "NOW()"], ['status', 'date_order']);
+            $model->insert(["'Обрабатывается'", "NOW()"], ['status', 'date_order']);
             $model->setReturning('id');
             $order_status_id = $model->executeQuery(true)['id'];
             $model->setTable('orders');
