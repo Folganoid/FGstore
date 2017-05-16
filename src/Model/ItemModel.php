@@ -27,7 +27,7 @@ class ItemModel extends Model
     public function getVars(int $id)
     {
         $this->setCase('select');
-        $this->setColumns(['a.name', 'CONCAT(ivv.value, ivi.value, ivd.value, ivb.value) AS value']);
+        $this->setColumns(['a.name', 'a.unit', 'CONCAT(ivv.value, ivi.value, ivd.value, ivb.value) AS value']);
         $this->table = 'attribute AS a';
         $this->setLeftJoin([
             ['item_val_int AS ivi', 'ivi.attribute_id = a.id'],
@@ -42,7 +42,7 @@ class ItemModel extends Model
         $result = [];
 
         for ($i = 0; $i < count($arrDB); $i++) {
-            $result[$arrDB[$i]['name']] = $arrDB[$i]['value'];
+            $result[] = [$arrDB[$i]['name'], $arrDB[$i]['value'].' '.$arrDB[$i]['unit']];
         }
 
         return $result;

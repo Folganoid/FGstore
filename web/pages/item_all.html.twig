@@ -1,14 +1,19 @@
+<h3 class="cat_string1">Catalog</h3>
 <div class="col-xs-1 col-md-3"></div>
 <div class="col-xs-10 col-md-6">
-    <h2 align="center">Common Category list</h2>
     <br>
-    <ul>
+    <table class="catalog" width="100%">
         {% for cat in cats %}
-            <li><b>{{ cat['name'] }}</b> ({{ cat['notice'] }})
-                <a class="pull-right"
-                   href="{{ twigLink('item_category', {'id': cat['id']}) }}">view...</a>
-            </li>
+            <tr>
+                <td>
+                    <b>{{ cat['name'] }}</b> ({{ cat['notice'] }})
+                </td>
+                <td>
+                    <a class="pull-right btn btn-primary btn-xs"
+                       href="{{ twigLink('item_category', {'id': cat['id']}) }}">view category...</a>
+                </td>
+            </tr>
         {% endfor %}
-    </ul>
+    </table>
 </div>
 <div class="col-xs-1 col-md-3"></div>

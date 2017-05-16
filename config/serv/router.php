@@ -40,6 +40,18 @@ return [
             "controller" => "Fg\\Controller\\ItemController",
             "action" => "itemBuy"
         ],
+        "item_control" => [
+            "pattern" => "/control",
+            "method" => "GET",
+            "controller" => "Fg\\Controller\\ItemController",
+            "action" => "itemCtrl"
+        ],
+        "item_control_exec" => [
+            "pattern" => "/control/exec",
+            "method" => "POST",
+            "controller" => "Fg\\Controller\\ItemController",
+            "action" => "itemCtrlAdmin"
+        ],
 
 // ============== Order ===================
 

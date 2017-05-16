@@ -8,7 +8,8 @@ return [
 //        1 - "Guest",
 
     "mapping" => [
-        "orders" => 8, // can view rank >= 8
+        "orders" => 8, // allow rank >= 8
+        "edit_items" => 8, // allow rank >= 8
         "client_private" => 10 // admin only
     ]
 ]

@@ -1,7 +1,3 @@
-#content {
-    padding-top: 50px;
-}
-
 .footer {
     color: white;
     position: fixed;
@@ -21,7 +17,7 @@
     text-align: center;
 }
 
-.ordertable tr td{
+.ordertable tr td {
     padding: 5px;
 }
 
@@ -30,10 +26,10 @@
 }
 
 .basket_row {
-    background-color: lightgrey;
+    background-color: #e8e8e8;
 }
 
-.baskettable tr td{
+.baskettable tr td {
     padding: 5px;
 }
 
@@ -45,6 +41,39 @@
 .color_red {
     color: red;
 }
+
 .color_green {
     color: green;
+}
+
+.but_marg {
+    margin: 3px;
+}
+
+.poster {
+    text-align: center;
+    margin-top: 15%;
+
+}
+
+.catalog tr td {
+    padding: 1px;
+}
+
+.cat_string1 {
+    padding: 3px;
+    background-color: #CEE3F6;
+}
+.cat_string2 {
+    padding: 3px;
+    background-color: #E0ECF8;
+}
+#basket {
+    color: #fff;
+}
+
+.back1 {
+    background: #CEE3F6;
+    border-radius: 5px;
+
 }

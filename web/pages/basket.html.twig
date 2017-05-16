@@ -1,10 +1,14 @@
 <script src="/js/basket.js"></script>
-<h3>YOUR BASKET</h3>
+<div class="row">
+    <h3 class="cat_string1">YOUR BASKET</h3>
+</div>
 <br>
 <table class="baskettable" id="basket_table"></table>
 <h4 id="basket_msg"></h4>
-
-<button id="basket_send_but" type="button" class="hidden btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Send my ORDER
+<h4 id="basket_total">Sum total: <b id="basket_sum"></b> UAH</h4>
+<br>
+<button id="basket_send_but" type="button" class="hidden btn btn-primary" data-toggle="modal"
+        data-target=".bs-example-modal-sm">Send my ORDER
 </button>
 
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">

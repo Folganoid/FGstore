@@ -43,6 +43,12 @@
                     </li>
                 {% endif %}
 
+                {% if SESSION_rank >= 8 %}
+                    <li>
+                        <a href="{{ twigLink('item_control') }}">ITEMS-CONTROL</a>
+                    </li>
+                {% endif %}
+
                 {% if SESSION_rank >= 10 %}
                     <li>
                         <a href="{{ twigLink('client_all') }}">CLIENTS</a>
@@ -78,7 +84,7 @@
 <div class="modal fade bs-modal-login" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header back1">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title text-center" id="gridSystemModalLabel">Sign In please</h4>
@@ -103,7 +109,7 @@
 <div class="modal fade bs-modal-reg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header back1">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title text-center" id="gridSystemModalLabel">Registration</h4>

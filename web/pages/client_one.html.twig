@@ -1,4 +1,4 @@
-<h3>{{ name }} {{ surname }} </h3>
+<h3 class="cat_string1 row">{{ name }} {{ surname }} </h3>
 
 <form method="POST" action="{{ twigLink('logout') }}">
     <button class="btn btn-danger" type="submit" name="logout">LOG OUT</button>
@@ -15,8 +15,7 @@
 </ul>
 
 {% if orders|length > 0 %}
-    <h3>Orders:</h3>
-    <br>
+    <h3 class="cat_string2 row">Orders</h3>
     <table border="1" class="ordertable text-center">
         <tr align="center" height="40px">
             <td><b>Item name</b></td>
@@ -37,5 +36,5 @@
     </table>
     <br><br>
     {% else %}
-        <h3>You don't have any orders...</h3>
+        <h3 class="cat_string2 row">You don't have any orders...</h3>
 {% endif %}

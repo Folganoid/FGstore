@@ -10,7 +10,7 @@ $(document).ready(function () {
 
     getBasketList();
     /**
-     * get baket list
+     * get basket list
      */
     function getBasketList() {
         $.ajax({
@@ -50,25 +50,30 @@ $(document).ready(function () {
             headTable = "<tr align='center'><td>" +
                 "<b>Item name</b></td><td><b>Notice</b></td><td><b>Price</b></td></tr>";
             bodyTable = "";
+            var sum = 0;
 
             for (i = 0; i < json.length; i++) {
+                sum += +json[i]['price'];
                 bodyTable += "<tr class='basket_row'><td><a href='/item/"+ json[i]['item_id'] +"'>" +
                     json[i]['name'] +
                     "</a></td><td>" + json[i]['notice'] +
                     "</td><td><span class='price pull-right'>" +
                     json[i]['price'] +
-                    " $</span></td><td><button class='basket_remove btn btn-danger btn-xs' title='Remove' value='" +
+                    " UAH</span></td><td><button class='basket_remove btn btn-danger btn-xs' title='Remove' value='" +
                     json[i]['id'] +
                     "'>X</button></td></tr>"+
                     "<tr><td></td></tr>";
             }
             $('#basket_table').append(headTable + bodyTable);
             $('#basket_send_but').attr('class', 'btn btn-primary');
+            $('#basket_total').attr('class', '');
+            $('#basket_sum').text(sum.toFixed(2));
         }
 
         else {
             $('#basket_msg').text('is empty...');
             $('#basket_send_but').attr('class', 'hidden');
+            $('#basket_total').attr('class', 'hidden');
         }
 
     }

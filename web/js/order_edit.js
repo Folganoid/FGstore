@@ -7,14 +7,14 @@ $(document).ready(function () {
      */
     $('#but_fill_send').click(function () {
         $('#order_send_date').val(today());
-        $('#order_status').val('Отправлен');
+        $('#order_status').val('Sent');
     });
     /**
      * when click FILL RECEIVE button
      */
     $('#but_fill_rec').click(function () {
         $('#order_rec_date').val(today());
-        $('#order_status').val('Доставлен');
+        $('#order_status').val('Delivered');
     });
 
 });
