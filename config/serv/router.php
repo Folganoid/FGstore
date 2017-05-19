@@ -131,6 +131,16 @@ return [
                 "controller" => "Fg\\Controller\\LoginController",
                 "action" => "auth"
             ],
+        "auth_edit" =>
+            [
+                "pattern" => "/auth_edit/{id}",
+                "method" => "POST",
+                "variables" => [
+                    "id" => "\d+",
+                ],
+                "controller" => "Fg\\Controller\\LoginController",
+                "action" => "authEdit"
+            ],
         "reg" =>
             [
                 "pattern" => "/reg",

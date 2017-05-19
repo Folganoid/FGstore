@@ -20,7 +20,6 @@ class ApiController extends Controller
      */
     public function apiGetOneItem(array $params = [], array $enhanceParams = [])
     {
-
         $model = new ApiModel();
         $article = $model->getOne($params['id']);
         $vars = $model->getVars($params['id']);
@@ -60,11 +59,8 @@ class ApiController extends Controller
     public function apiGetBasketList(array $params = [], array $enhanceParams = [])
     {
         $secure = DIInjector::get('secure');
-        if ($secure->checkAllow('client_private') || $secure->checkOwner($params['id'])) {
+        $secure->checkOwner($params['id']);
             $model = new BasketModel();
             echo json_encode($model->getBasketList($params['id']));
-        } else {
-            throw new AccessDeniedException('Access denied');
-        }
     }
 }

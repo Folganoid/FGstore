@@ -31,18 +31,15 @@ class ClientController extends Controller
     public function getOneClient(array $params = [], array $enhanceParams = [])
     {
         $secure = DIInjector::get('secure');
-        if ($secure->checkAllow('client_private') || $secure->checkOwner($params['id'])) {
-            $model = new ClientModel();
-            $clientVars = $model->getOne($params['id']);
-            if (empty($clientVars)) {
-                throw new DataErrorException(exit($params['id'] . ' : Data not find'));
-            }
-
-            $clientVars['orders'] = $model->getOrdersAll($params['id']);
-            $this->render($this->getViewFile(ROOTDIR . '/web/pages/client_one.html.twig'), $clientVars, $enhanceParams);
-        } else {
-            throw new AccessDeniedException('Access denied');
+        $secure->checkOwner($params['id']);
+        $model = new ClientModel();
+        $clientVars = $model->getOne($params['id']);
+        if (empty($clientVars)) {
+            throw new DataErrorException(exit($params['id'] . ' : Data not find'));
         }
+        $clientVars['orders'] = $model->getOrdersAll($params['id']);
+        $this->render($this->getViewFile(ROOTDIR . '/web/pages/client_one.html.twig'), $clientVars, $enhanceParams);
+
     }
 
     /**
@@ -53,12 +50,9 @@ class ClientController extends Controller
      */
     public function getAllClients(array $params = [], array $enhanceParams = [])
     {
-        if (DIInjector::get('secure')->checkAllow('client_private')) {
-            $model = new ClientModel();
-            $clients['clients'] = $model->getAll();
-            $this->render($this->getViewFile(ROOTDIR . '/web/pages/client_all.html.twig'), $clients, $enhanceParams);
-        } else {
-            throw new AccessDeniedException('Access denied');
-        }
+        DIInjector::get('secure')->checkAllow('client_private');
+        $model = new ClientModel();
+        $clients['clients'] = $model->getAll();
+        $this->render($this->getViewFile(ROOTDIR . '/web/pages/client_all.html.twig'), $clients, $enhanceParams);
     }
 }

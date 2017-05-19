@@ -13,7 +13,6 @@ $(document).ready(function () {
     $('#reg_pass_2').change(function () {
         confirmRegPass();
     });
-
 });
 
 /**
@@ -33,10 +32,7 @@ function getBasketCount() {
  * check passwords match for registration
  */
 function confirmRegPass() {
-    var pass1 = $('#reg_pass_1').val();
-    var pass2 = $('#reg_pass_2').val();
-
-    if (pass1 == pass2) {
+    if ($('#reg_pass_1').val() == $('#reg_pass_2').val()) {
         $('#reg_pass_msg').text("\u00A0");
         document.getElementById('reg_but_submit').disabled = false;
     }

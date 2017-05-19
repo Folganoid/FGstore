@@ -1,7 +1,10 @@
+<script src="/js/client.js"></script>
+
 <h3 class="cat_string1 row">{{ name }} {{ surname }} </h3>
 
 <form method="POST" action="{{ twigLink('logout') }}">
     <button class="btn btn-danger" type="submit" name="logout">LOG OUT</button>
+    <a class="btn btn-warning" data-toggle="modal" data-target=".bs-modal-edit">Edit account</a>
 </form>
 
 <br>
@@ -11,7 +14,9 @@
     <li>Rank: <b>{{ rank }}</b></li>
     <li>Tel.number: <b>{{ telnumber }}</b></li>
     <li>address: <b>{{ address }}</b></li>
-    <li>notice: <b>{{ notice }}</b></li>
+    {% if SESSION_rank >= 10 %}
+        <li>notice: <b>{{ notice }}</b></li>
+    {% endif %}
 </ul>
 
 {% if orders|length > 0 %}
@@ -27,7 +32,8 @@
         {% for var in orders %}
 
             <tr>
-                <td><a class="pull-left" href="{{ twigLink('item_one', {'id': var['item_id']}) }}">{{ var['item_name'] }}</a></td>
+                <td><a class="pull-left"
+                       href="{{ twigLink('item_one', {'id': var['item_id']}) }}">{{ var['item_name'] }}</a></td>
                 <td>{{ var['status'] }}</td>
                 <td><b class="color_red">{{ var['date_send'] }}</b></td>
                 <td><b class="color_green">{{ var['date_receive'] }}</b></td>
@@ -35,6 +41,80 @@
         {% endfor %}
     </table>
     <br><br>
-    {% else %}
-        <h3 class="cat_string2 row">You don't have any orders...</h3>
+{% else %}
+    <h3 class="cat_string2 row">You don't have any orders...</h3>
 {% endif %}
+
+{# ===================== user edit modal #}
+
+<div class="modal fade bs-modal-edit" tabindex="-1" role="dialog" aria-labelledby="mySystemModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header back1">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center" id="gridSystemModalLabel">Edit account</h4>
+            </div>
+            <br>
+            <div class="center-block text-center">
+                <form method="POST" action="{{ twigLink('auth_edit', {'id': id}) }}">
+                    <table class="ordertable" width="100%">
+                        <tr>
+                            <td width="30%">Login:</td>
+                            <td width="70%"><input type="text" name="login" value="{{ login }}" pattern="[a-zA-Zа-яА-Я0-9]{3,15}" title="3-15 letters or digits" required/><span class="color_red"> *</span></td>
+                        </tr>
+                        <tr>
+                            <td>Name:</td>
+                            <td><input type="text" name="name" value="{{ name }}" pattern="[a-zA-Zа-яА-Я]{3,15}"
+                                       title="3-15 letters" required/><span class="color_red"> *</span></td>
+                        </tr>
+                        <tr>
+                            <td>Surname:</td>
+                            <td><input type="text" name="surname" value="{{ surname }}" pattern="[a-zA-Zа-яА-Я]{3,15}"
+                                       title="3-15 letters" required/><span class="color_red"> *</span></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><input name="email" value="{{ email }}" pattern="[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})" required/><span class="color_red"> *</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>New pass:</td>
+                            <td><input id="edit_pass_1" type="password" name="pass1" placeholder="New password"/></td>
+                        </tr>
+                        <tr>
+                            <td>Conf.pass:</td>
+                            <td><input id="edit_pass_2" type="password" name="pass2" placeholder="Confirm password"/>
+                            </td>
+                        </tr>
+                        {% if SESSION_rank >= 10 %}
+                            <tr>
+                                <td>Rank:</td>
+                                <td><input type="text" name="rank" value="{{ rank }}" pattern="[0-9]+"
+                                           title="Digits only" required/><span class="color_red"> *</span></td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <td>Tel.number:</td>
+                            <td><input type="text" name="tel" value="{{ telnumber }}" pattern="[0-9]+"
+                                       title="Digits only" required/><span class="color_red"> *</span></td>
+                        </tr>
+                        <tr>
+                            <td>Address:</td>
+                            <td><input type="text" name="address" value="{{ address }}"/></td>
+                        </tr>
+                        {% if SESSION_rank >= 10 %}
+                            <tr>
+                                <td>Notice:</td>
+                                <td><input type="text" name="notice" value="{{ notice }}"/></td>
+                            </tr>
+                        {% endif %}
+                    </table>
+                    <h6 id="edit_pass_msg" class="color_red">&nbsp;</h6>
+                    <button id="edit_but_submit" class="btn btn-primary" type="submit">Apply changes</button>
+                </form>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>

@@ -34,12 +34,9 @@ class OrderController extends Controller
         $model = new OrderModel();
         $vars['orderArr'] = $model->getOrdersAll();
 
-        $secure = DIInjector::get('secure');
-        if ($secure->checkAllow('orders')) {
-            $this->render($this->getViewFile(ROOTDIR . '/web/pages/orders.html.twig'), $vars);
-        } else {
-            throw new AccessDeniedException('Access denied');
-        }
+        DIInjector::get('secure')->checkAllow('orders');
+
+        $this->render($this->getViewFile(ROOTDIR . '/web/pages/orders.html.twig'), $vars);
     }
 
     /**
@@ -48,16 +45,13 @@ class OrderController extends Controller
      */
     public function orderEdit(array $params = [], array $enhanceParams = [])
     {
-        $secure = DIInjector::get('secure');
-        if ($secure->checkAllow('orders')) {
-            $model = new OrderModel();
-            $model->setTable('orders_status');
-            $order = $model->getOne($params['id']);
+        DIInjector::get('secure')->checkAllow('orders');
 
-            $this->render($this->getViewFile(ROOTDIR . '/web/pages/order_edit.html.twig'), $params, $order);
-        } else {
-            throw new AccessDeniedException('Access denied');
-        }
+        $model = new OrderModel();
+        $model->setTable('orders_status');
+        $order = $model->getOne($params['id']);
+
+        $this->render($this->getViewFile(ROOTDIR . '/web/pages/order_edit.html.twig'), $params, $order);
     }
 
     /**

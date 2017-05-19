@@ -13,5 +13,6 @@ return [
     '401' => 'Unauthorized',
     '403' => 'Forbidden',
     '404' => 'Not found',
+    '406' => 'Not Acceptable',
     '500' => 'Server error'
 ];

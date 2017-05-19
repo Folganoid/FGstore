@@ -1,3 +1,5 @@
+<script src="/js/item_one.js"></script>
+
 <h3 class="cat_string1"><b>{{ name }}</b></h3>
 <h4>{{ notice }}</h4>
 <ul>
@@ -25,11 +27,7 @@
                     <h4 class="modal-title text-center" id="gridSystemModalLabel">Confirm the action</h4>
                 </div>
                 <br>
-                <form class="text-center" method="POST" action="{{ twigLink('basket_add') }}">
-                    <input type="hidden" name="item_id" value="{{ id }}"/>
-                    <input type="hidden" name="user_id" value="{{ SESSION_id }}"/>
-                    <button class="btn btn-primary" type="submit">ADD TO MY BASKET</button>
-                </form>
+                <button id="item_buy" class="btn btn-primary center-block"  value="{{ id }}">Add to my basket</button>
                 <br>
             </div>
         </div>

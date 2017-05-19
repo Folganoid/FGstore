@@ -42,8 +42,8 @@ class BasketController extends Controller
      */
     public function basketAdd()
     {
-        $user = Validation::entrySecure($_POST['user_id']);
-        $item = Validation::entrySecure($_POST['item_id']);
+        $user = $_SESSION['SESSION_id'];
+        $item = Validation::entrySecure($_POST['id']);
 
         if (!$user || !$item) {
             throw new \Exception(exit('Invalid entry DATA.'));

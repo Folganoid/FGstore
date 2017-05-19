@@ -9,8 +9,6 @@ use Fg\Frame\Router\Router;
 use Fg\Frame\Validation\Validation;
 use Fg\Model\ItemModel;
 use Fg\Frame\DI\DIInjector;
-use Fg\Frame\Exceptions\AccessDeniedException;
-
 
 /**
  * Class ItemController
@@ -45,14 +43,14 @@ class ItemController extends Controller
         $vars['params'] = $model->getVars($params['id']);
 
         if (empty($item) || empty($vars)) {
-            throw new DataErrorException(exit($params['id'] . ' : Data not find'));
+            throw new DataErrorException('Item ' . $params['id'] . ' is not find');
         }
 
         /**
          * get price
          */
         for ($i = 0; $i < count($vars['params']); $i++) {
-            if ($vars['params'][$i][0] = 'Price') {
+            if ($vars['params'][$i][0] == 'Price') {
                 $item['Price'] = $vars['params'][$i][1];
                 break;
             }
@@ -70,15 +68,15 @@ class ItemController extends Controller
      */
     public function getCatItems(array $params = [], array $enhanceParams = [])
     {
-
         $model = new ItemModel();
         $categories['cats'] = $model->getCategory($params['id']);
         $categories['items'] = $model->getItemList($params['id']);
         $categories['parentName'] = $model->getCatName($params['id'])[0];
 
-        if (empty($categories)) {
-            throw new DataErrorException(exit($params['id'] . ' : Data not find'));
+        if (empty($categories['parentName'])) {
+            throw new DataErrorException('Category ' . $params['id'] . ' isx not find');
         }
+
         $this->render($this->getViewFile(ROOTDIR . '/web/pages/item_cat.html.twig'), $categories, $enhanceParams);
     }
 
@@ -95,34 +93,31 @@ class ItemController extends Controller
         }
 
         $secure = DIInjector::get('secure');
-        if ($secure->checkAllow('client_private') || $secure->checkOwner($user)) {
+        $secure->checkOwner($user);
 
-            $model = new ItemModel();
-            $model->setTable('basket');
-            $model->setCase('select');
-            $model->setWhere(['client_id = ' . $user]);
+        $model = new ItemModel();
+        $model->setTable('basket');
+        $model->setCase('select');
+        $model->setWhere(['client_id = ' . $user]);
 
-            $basket = $model->getAll();
+        $basket = $model->getAll();
 
-            for ($i = 0; $i < count($basket); $i++) {
-                $model->setTable('orders_status');
-                $model->insert(["'Processing'", "NOW()"], ['status', 'date_order']);
-                $model->setReturning('id');
-                $order_status_id = $model->executeQuery(true)['id'];
-                $model->setTable('orders');
-                $model->insert([$basket[$i]['item_id'], $order_status_id, $user], ['item_id', 'order_status_id', 'client_id']);
-                $model->executeQuery();
-            }
-
-            $model->setTable('basket');
-            $model->setCase('delete');
-            $model->setWhere(['client_id =' . $user]);
+        for ($i = 0; $i < count($basket); $i++) {
+            $model->setTable('orders_status');
+            $model->insert(["'Processing'", "NOW()"], ['status', 'date_order']);
+            $model->setReturning('id');
+            $order_status_id = $model->executeQuery(true)['id'];
+            $model->setTable('orders');
+            $model->insert([$basket[$i]['item_id'], $order_status_id, $user], ['item_id', 'order_status_id', 'client_id']);
             $model->executeQuery();
-
-            new RedirectResponse(Router::getLink('client_one', ['id' => $user]));
-        } else {
-            throw new AccessDeniedException('Access denied');
         }
+
+        $model->setTable('basket');
+        $model->setCase('delete');
+        $model->setWhere(['client_id =' . $user]);
+        $model->executeQuery();
+
+        new RedirectResponse(Router::getLink('client_one', ['id' => $user]));
     }
 
     /**
@@ -130,23 +125,18 @@ class ItemController extends Controller
      */
     public function itemCtrl()
     {
-        $secure = DIInjector::get('secure');
-        if ($secure->checkAllow('edit_items')) {
+        DIInjector::get('secure')->checkAllow('edit_items');
+        $model = new ItemModel();
+        $model->setTable('category');
+        $model->setOrderBy(['name']);
+        $categories['cats'] = $model->getAll();
 
-            $model = new ItemModel();
-            $model->setTable('category');
-            $model->setOrderBy(['name']);
-            $categories['cats'] = $model->getAll();
+        $model->setTable('attribute');
+        $model->setOrderBy(['id']);
+        $categories['attributes'] = $model->getAll();
 
-            $model->setTable('attribute');
-            $model->setOrderBy(['id']);
-            $categories['attributes'] = $model->getAll();
+        $this->render($this->getViewFile(ROOTDIR . '/web/pages/item_ctrl.html.twig'), $categories);
 
-            $this->render($this->getViewFile(ROOTDIR . '/web/pages/item_ctrl.html.twig'), $categories);
-
-        } else {
-            throw new AccessDeniedException('Access denied');
-        }
     }
 
     /**

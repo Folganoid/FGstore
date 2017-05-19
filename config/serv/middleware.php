@@ -2,10 +2,10 @@
 
 return [
     'rules' => [
-        'usermode' => Fg\Frame\Middleware\UserMode::class,
-        'test1' => \Fg\Frame\Middleware\Test1::class,
+        'technical_works' => Fg\Frame\Middleware\TechWorks::class,
+        'night_mode' => \Fg\Frame\Middleware\NightMode::class,
         'test2' => \Fg\Frame\Middleware\Test2::class
     ],
-    'order' => ['test1', 'usermode', 'test2'],
-    'params' => ['test1' => 1, 'usermode' => 1, 'test2' => 1]
+    'order' => ['night_mode', 'technical_works', 'test2'],
+    'params' => ['night_mode' => 0, 'technical_works' => 0, 'test2' => 1]
 ];

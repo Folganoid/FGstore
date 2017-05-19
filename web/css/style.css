@@ -22,7 +22,7 @@
 }
 
 .modal {
-    padding-top: 10%;
+    padding-top: 2%;
 }
 
 .basket_row {
@@ -64,10 +64,12 @@
     padding: 3px;
     background-color: #CEE3F6;
 }
+
 .cat_string2 {
     padding: 3px;
     background-color: #E0ECF8;
 }
+
 #basket {
     color: #fff;
 }
