@@ -1,3 +1,5 @@
+<script src="/js/item_ctrl.js"></script>
+
 <h3 class="cat_string1" align="center">ITEMS CONTROL</h3>
 <div class="col-md-6">
     <h4 class="cat_string2">Add categories</h4>
@@ -8,6 +10,7 @@
                 <td>Name</td>
                 <td>Parent ID</td>
                 <td>Notice</td>
+                <td>Edit</td>
             </tr>
             {% for var in cats %}
                 <tr>
@@ -15,6 +18,7 @@
                     <td>{{ var['name'] }}</td>
                     <td class="text-center">{{ var['parent_category_id'] }}</td>
                     <td>{{ var['notice'] }}</td>
+                    <td><a class="btn btn-info btn-xs cat_edit" value="{{ var['id'] }}@{{ var['name'] }}@{{ var['parent_category_id'] }}@{{ var['notice'] }}" data-toggle="modal" data-target=".bs-modal-cat_edit">Edit</a></td>
 
                 </tr>
             {% endfor %}
@@ -36,6 +40,7 @@
                 <td>Name</td>
                 <td>Unit</td>
                 <td>Type</td>
+                <td>Edit</td>
             </tr>
             {% for var in attributes %}
                 <tr>
@@ -43,7 +48,7 @@
                     <td>{{ var['name'] }}</td>
                     <td>{{ var['unit'] }}</td>
                     <td>{{ var['data_type'] }}</td>
-
+                    <td><a class="btn btn-info btn-xs attribute_edit" value="{{ var['id'] }}@{{ var['name'] }}@{{ var['unit'] }}@{{ var['data_type'] }}" data-toggle="modal" data-target=".bs-modal-edit">Edit</a></td>
                 </tr>
             {% endfor %}
             <tr>
@@ -90,7 +95,7 @@
                 <td>Name</td>
                 <td>Data type</td>
                 <td>Units</td>
-                <td>Variable</td>
+                <td>Value</td>
             </tr>
             {% for var in attributes %}
                 <tr>
@@ -103,5 +108,70 @@
         </table>
         <button class="btn btn-primary but_marg" type="submit" name="add_item">Add item</button>
     </form>
-
 </div>
+
+{# ===================== attribute edit modal #}
+
+<div class="modal fade bs-modal-edit" tabindex="-1" role="dialog" aria-labelledby="mySystemModalLabel">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header back1">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center" id="gridSystemModalLabel">Edit attribute <span class="attr_id"></span></h4>
+            </div>
+            <br>
+            <div class="center-block text-center">
+                <form method="POST" action="{{ twigLink('attribute_edit') }}">
+                    <span class="attr_id"></span>
+                    <input class="attr_id" type="hidden" name="id" />
+                    <input name="name" id="attr_name" />
+                    <input name="unit" id="attr_unit" />
+                    <span id="attr_type"></span>
+                    <br><br>
+                    <button class="btn btn-primary" type="submit">Apply changes</button>
+                </form>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
+
+{# ===================== category edit modal #}
+
+<div class="modal fade bs-modal-cat_edit" tabindex="-1" role="dialog" aria-labelledby="mySystemModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header back1">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center" id="gridSystemModalLabel">Edit category <span class="cat_id"></span></h4>
+            </div>
+            <br>
+            <div class="center-block text-center">
+                <form method="POST" action="{{ twigLink('category_edit') }}">
+
+                    <table class="ordertable">
+                        <tr>
+                            <td>Name:</td>
+                            <td><input name="cat_name" id="cat_name" /></td>
+                        </tr>
+                        <tr>
+                            <td>Parrent ID:</td>
+                            <td><input name="cat_parent" id="cat_parent" /></td>
+                        </tr>
+                        <tr>
+                            <td>Notice:</td>
+                            <td><input name="cat_notice" id="cat_notice" /></td>
+                        </tr>
+                    </table>
+                    <br>
+                    <input type="hidden" name="cat_id" class="cat_id" />
+                    <button class="btn btn-primary" type="submit">Apply changes</button>
+                </form>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
+

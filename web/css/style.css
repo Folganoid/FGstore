@@ -79,3 +79,14 @@
     border-radius: 5px;
 
 }
+
+#sum {
+    font-size: 26px;
+    color: #0080FF;
+}
+
+.arrow:hover  {
+    color: white;
+    text-shadow: 0 0 0.2em blue, 0 0 0.2em blue, 0 0 0.2em blue;
+    cursor: pointer;
+}

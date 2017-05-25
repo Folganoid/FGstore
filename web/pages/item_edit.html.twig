@@ -1,0 +1,41 @@
+<h3 class="row cat_string1">Edit item ID#{{ id }}</h3>
+
+<div class="col-md-6">
+<form method="POST" action="{{ twigLink('item_edit_exec') }}">
+    <table class="ordertable">
+        <tr>
+            <td>Name</td>
+            <td><input name="item_name" value="{{ item['name'] }}" required/></td>
+        </tr>
+        <tr>
+            <td>Parent ID</td>
+            <td><input name="item_parent_id" value="{{ item['category_id'] }}" required pattern="[0-9]+"/></td>
+        </tr>
+        <tr>
+            <td>Notice</td>
+            <td><input name="item_notice" value="{{ item['notice'] }}" required /></td>
+        </tr>
+    </table>
+    <br>
+    <table align="center" border="1" class="ordertable">
+        <tr class="text-center" height="40px">
+            <td>Name</td>
+            <td>Data type</td>
+            <td>Units</td>
+            <td>Value</td>
+        </tr>
+        {% for var in attributes %}
+            <tr>
+                <td>{{ var['name'] }}</td>
+                <td>{{ var['data_type'] }}</td>
+                <td>{{ var['unit'] }}</td>
+                <td><input name="{{ var['id'] }}@{{ var['data_type'] }}" value="{{ var['value'] }}"/></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <input type="hidden" name="id" value="{{ id }}" />
+    <button class="btn btn-primary but_marg" type="submit" name="edit_item">Apply changes</button>
+    <br>
+    <button class="btn btn-danger but_marg" type="submit" name="delete_item">Delete item and all parameters</button>
+</form>
+</div>

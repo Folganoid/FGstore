@@ -27,6 +27,7 @@
             <td><b>Order status</b></td>
             <td><b>Send date</b></td>
             <td><b>Receive date</b></td>
+            <td><b>Sum</b></td>
         </tr>
 
         {% for var in orders %}
@@ -37,6 +38,7 @@
                 <td>{{ var['status'] }}</td>
                 <td><b class="color_red">{{ var['date_send'] }}</b></td>
                 <td><b class="color_green">{{ var['date_receive'] }}</b></td>
+                <td><b>{{ var['sum'] }}</b></td>
             </tr>
         {% endfor %}
     </table>

@@ -44,12 +44,13 @@ class BasketController extends Controller
     {
         $user = $_SESSION['SESSION_id'];
         $item = Validation::entrySecure($_POST['id']);
+        $sum = Validation::entrySecure($_POST['sum']);
 
         if (!$user || !$item) {
             throw new \Exception(exit('Invalid entry DATA.'));
         }
         $model = new BasketModel;
-        $model->insert([$item, $user], ['item_id', 'client_id']);
+        $model->insert([$item, $user, $sum], ['item_id', 'client_id', 'sum']);
         $model->executeQuery();
 
         new RedirectResponse(Router::getLink('basket', ['id' => $user]));

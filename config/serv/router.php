@@ -52,6 +52,34 @@ return [
             "controller" => "Fg\\Controller\\ItemController",
             "action" => "itemCtrlAdmin"
         ],
+        "attribute_edit" => [
+            "pattern" => "/control/attr_edit",
+            "method" => "POST",
+            "controller" => "Fg\\Controller\\ItemController",
+            "action" => "attributeEdit"
+        ],
+        "category_edit" => [
+            "pattern" => "/control/cat_edit",
+            "method" => "POST",
+            "controller" => "Fg\\Controller\\ItemController",
+            "action" => "categoryEdit"
+        ],
+        "item_edit" => [
+            "pattern" => "/item/edit/{id}",
+            "method" => "GET",
+            "variables" => [
+                "id" => "\d+",
+            ],
+            "controller" => "Fg\\Controller\\ItemController",
+            "action" => "itemEdit"
+        ],
+        "item_edit_exec" => [
+            "pattern" => "/item/edit/exec",
+            "method" => "POST",
+            "controller" => "Fg\\Controller\\ItemController",
+            "action" => "itemEditExec"
+        ],
+
 
 // ============== Order ===================
 

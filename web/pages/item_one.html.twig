@@ -1,6 +1,6 @@
 <script src="/js/item_one.js"></script>
 
-<h3 class="cat_string1"><b>{{ name }}</b></h3>
+<h3 class="row cat_string1"><b>{{ name }}</b></h3>
 <h4>{{ notice }}</h4>
 <ul>
     <li><b>Item № {{ id }}</b></li>
@@ -15,22 +15,36 @@
 
     {% if SESSION_id %}
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Buy right now
-    </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Buy right
+            now
+        </button>
 
-    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center" id="gridSystemModalLabel">Confirm the action</h4>
+        {% if SESSION_rank >= 8 %}
+            <a class="btn btn-warning" href="{{ twigLink('item_edit', {'id': id}) }}">Edit item</a>
+        {% endif %}
+
+        {# ========== buy item confirm modal #}
+
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title text-center" id="gridSystemModalLabel">Confirm the action</h4>
+                    </div>
+                    <br>
+                    <div align="center" style="user-select: none;"><h4>Amount:
+                            <span id="arrow_left" class="glyphicon glyphicon-menu-left arrow"></span>
+                            <b id="sum">1</b>
+                            <span id="arrow_right" class="glyphicon glyphicon-menu-right arrow"></span></h4></div>
+                    <br>
+                    <button id="item_buy" class="btn btn-primary center-block" sum="1" value="{{ id }}">Add to my
+                        basket
+                    </button>
+                    <br>
                 </div>
-                <br>
-                <button id="item_buy" class="btn btn-primary center-block"  value="{{ id }}">Add to my basket</button>
-                <br>
             </div>
         </div>
-    </div>
-
-{% endif %}
+    {% endif %}

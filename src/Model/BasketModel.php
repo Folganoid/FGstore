@@ -17,7 +17,7 @@ class BasketModel extends Model
     public function getBasketList(int $id)
     {
         $this->setCase('select');
-        $this->setColumns(["b.id", "i.name", "b.item_id", "i.notice", "ivd.value AS price"]);
+        $this->setColumns(["b.id", "i.name", "b.item_id", "i.notice", "ivd.value AS price", "b.sum"]);
         $this->table = 'basket AS b, item AS i, item_val_double AS ivd';
         $this->setWhere(["b.client_id = " . $id, "b.item_id = i.id", "ivd.attribute_id = 1", "ivd.item_id = i.id"]);
         $this->setLimit(0);
