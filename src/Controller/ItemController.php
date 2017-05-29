@@ -17,6 +17,42 @@ use Fg\Frame\DI\DIInjector;
 class ItemController extends Controller
 {
     /**
+     * @var array - config for EAV DB with item params
+     */
+    public $config;
+
+    /**
+     * ItemController constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->config = [
+            "int" => [
+                "arr" => $item_val_int = [],
+                "isText" => false,
+                "table" => "item_val_int"
+            ],
+            "double" => [
+                "arr" => $item_val_double = [],
+                "isText" => false,
+                "table" => "item_val_double"
+            ],
+            "varchar" => [
+                "arr" => $item_val_varchar = [],
+                "isText" => true,
+                "table" => "item_val_varchar"
+            ],
+            "date" => [
+                "arr" => $item_val_date = [],
+                "isText" => true,
+                "table" => "item_val_date"
+            ]
+        ];
+    }
+
+    /**
      * all categories
      *
      * @param array $params
@@ -55,7 +91,6 @@ class ItemController extends Controller
                 break;
             }
         }
-
         $this->render($this->getViewFile(ROOTDIR . '/web/pages/item_one.html.twig'), $item, $vars);
     }
 
@@ -76,7 +111,6 @@ class ItemController extends Controller
         if (empty($categories['parentName'])) {
             throw new DataErrorException('Category ' . $params['id'] . ' isx not find');
         }
-
         $this->render($this->getViewFile(ROOTDIR . '/web/pages/item_cat.html.twig'), $categories, $enhanceParams);
     }
 
@@ -136,7 +170,6 @@ class ItemController extends Controller
         $categories['attributes'] = $model->getAll();
 
         $this->render($this->getViewFile(ROOTDIR . '/web/pages/item_ctrl.html.twig'), $categories);
-
     }
 
     /**
@@ -220,96 +253,17 @@ class ItemController extends Controller
         DIInjector::get('secure')->checkAllow('edit_items');
         $item_id = Validation::entrySecure($_POST['id']);
 
-        if (isset($_POST['edit_item'])) {
+        $config = $this->config;
 
+        if (isset($_POST['edit_item'])) {
             $model = new ItemModel();
             $model->update($item_id, ["'" . $_POST['item_name'] . "'", $_POST['item_parent_id'], "'" . $_POST['item_notice'] . "'"], ['name', 'category_id', 'notice']);
 
-            $item_val_int = [];
-            $item_val_double = [];
-            $item_val_varchar = [];
-            $item_val_date = [];
+            $paramsArr = $this->createArrForItemParams($_POST, $config);
 
-            foreach ($_POST as $k => $v) {
-                if (strpos($k, '@') && !empty($v)) {
-                    $tmpArr = explode('@', $k);
-                    $id = $tmpArr[0];
-                    $type = $tmpArr[1];
-
-                    if ($type == 'int') {
-                        $item_val_int[] = [$id, $v];
-                    }
-                    if ($type == 'double') {
-                        $item_val_double[] = [$id, $v];
-                    }
-                    if ($type == 'varchar') {
-                        $item_val_varchar[] = [$id, $v];
-                    }
-                    if ($type == 'date') {
-                        $item_val_date[] = [$id, $v];
-                    }
-                }
+            foreach ($paramsArr as $k => $v) {
+                $model->addVarsEAVTable($v['table'], $v['arr'], $item_id, $v['isText']);
             }
-
-            $model->setTable('item_val_int');
-            for ($i = 0; $i < count($item_val_int); $i++) {
-                $model->setCase('update');
-                $model->setColumns(['value']);
-                $model->setValues([$item_val_int[$i][1]]);
-                $model->setWhere(['attribute_id = ' . $item_val_int[$i][0], 'item_id =' . $item_id]);
-                $model->setReturning('id');
-                $return_id = $model->executeQuery(true);
-
-                if (!$return_id) {
-                    $model->insert([$item_val_int[$i][0], $item_id, $item_val_int[$i][1]], ['attribute_id', 'item_id', 'value']);
-                    $model->executeQuery();
-                }
-            }
-
-            $model->setTable('item_val_double');
-            for ($i = 0; $i < count($item_val_double); $i++) {
-                $model->setCase('update');
-                $model->setColumns(['value']);
-                $model->setValues([$item_val_double[$i][1]]);
-                $model->setWhere(['attribute_id = ' . $item_val_double[$i][0], 'item_id =' . $item_id]);
-                $model->setReturning('id');
-                $return_id = $model->executeQuery(true);
-
-                if (!$return_id) {
-                    $model->insert([$item_val_double[$i][0], $item_id, $item_val_double[$i][1]], ['attribute_id', 'item_id', 'value']);
-                    $model->executeQuery();
-                }
-            }
-
-            $model->setTable('item_val_varchar');
-            for ($i = 0; $i < count($item_val_varchar); $i++) {
-                $model->setCase('update');
-                $model->setColumns(['value']);
-                $model->setValues(["'" . $item_val_varchar[$i][1] . "'"]);
-                $model->setWhere(["attribute_id = " . $item_val_varchar[$i][0], "item_id =" . $item_id]);
-                $model->setReturning('id');
-                $return_id = $model->executeQuery(true);
-
-                if (!$return_id) {
-                    $model->insert([$item_val_varchar[$i][0], $item_id, "'" . $item_val_varchar[$i][1] . "'"], ['attribute_id', 'item_id', 'value']);
-                    $model->executeQuery();
-                }
-            }
-            $model->setTable('item_val_date');
-            for ($i = 0; $i < count($item_val_date); $i++) {
-                $model->setCase('update');
-                $model->setColumns(['value']);
-                $model->setValues(["'" . $item_val_date[$i][1] . "'"]);
-                $model->setWhere(["attribute_id = " . $item_val_date[$i][0], "item_id =" . $item_id]);
-                $model->setReturning('id');
-                $return_id = $model->executeQuery(true);
-
-                if (!$return_id) {
-                    $model->insert([$item_val_date[$i][0], $item_id, "'" . $item_val_date[$i][1] . "'"], ['attribute_id', 'item_id', 'value']);
-                    $model->executeQuery();
-                }
-            }
-
         }
 
         if (isset($_POST['delete_item'])) {
@@ -317,21 +271,14 @@ class ItemController extends Controller
             $model->setTable('item');
             $model->delete($item_id);
 
-            $model->setTable('item_val_int');
             $model->setCase('delete');
             $model->setWhere(['item_id =' . $item_id]);
-            $model->executeQuery();
 
-            $model->setTable('item_val_varchar');
-            $model->executeQuery();
-
-            $model->setTable('item_val_date');
-            $model->executeQuery();
-
-            $model->setTable('item_val_double');
-            $model->executeQuery();
+            foreach ($config as $k => $v) {
+                $model->setTable($v['table']);
+                $model->executeQuery();
+            }
         }
-
         new RedirectResponse(Router::getLink('item_one', ['id' => $item_id]));
     }
 
@@ -350,54 +297,13 @@ class ItemController extends Controller
             $model->setReturning('id');
             $id_item_return = $model->executeQuery(true)['id'];
 
-            $item_val_int = [];
-            $item_val_double = [];
-            $item_val_varchar = [];
-            $item_val_date = [];
+            $config = $this->config;
 
-            foreach ($_POST as $k => $v) {
-                if (strpos($k, '@') && !empty($v)) {
-                    $tmpArr = explode('@', $k);
-                    $id = $tmpArr[0];
-                    $type = $tmpArr[1];
+            $paramsArr = $this->createArrForItemParams($_POST, $config);
 
-                    if ($type == 'int') {
-                        $item_val_int[] = [$id, $v];
-                    }
-                    if ($type == 'double') {
-                        $item_val_double[] = [$id, $v];
-                    }
-                    if ($type == 'varchar') {
-                        $item_val_varchar[] = [$id, $v];
-                    }
-                    if ($type == 'date') {
-                        $item_val_date[] = [$id, $v];
-                    }
-                }
+            foreach ($paramsArr as $k => $v) {
+                $model->addVarsEAVTableByCreateItem($v['table'], $v['arr'], $id_item_return, $v['isText']);
             }
-
-            $model->setTable('item_val_int');
-            for ($i = 0; $i < count($item_val_int); $i++) {
-                $model->insert([$item_val_int[$i][0], $id_item_return, $item_val_int[$i][1]], ['attribute_id', 'item_id', 'value']);
-                $model->executeQuery();
-            }
-
-            $model->setTable('item_val_double');
-            for ($i = 0; $i < count($item_val_double); $i++) {
-                $model->insert([$item_val_double[$i][0], $id_item_return, $item_val_double[$i][1]], ['attribute_id', 'item_id', 'value']);
-                $model->executeQuery();
-            }
-            $model->setTable('item_val_varchar');
-            for ($i = 0; $i < count($item_val_varchar); $i++) {
-                $model->insert([$item_val_varchar[$i][0], $id_item_return, "'" . $item_val_varchar[$i][1] . "'"], ['attribute_id', 'item_id', 'value']);
-                $model->executeQuery();
-            }
-            $model->setTable('item_val_date');
-            for ($i = 0; $i < count($item_val_date); $i++) {
-                $model->insert([$item_val_date[$i][0], $id_item_return, "'" . $item_val_date[$i][1] . "'"], ['attribute_id', 'item_id', 'value']);
-                $model->executeQuery();
-            }
-
             new RedirectResponse(Router::getLink('item_one', ['id' => $id_item_return]));
         }
 
@@ -432,8 +338,33 @@ class ItemController extends Controller
             } else {
                 new RedirectResponse(Router::getLink('item_category', ['id' => $_POST['parent_id']]));
             }
-
         }
+    }
+
+    /**
+     * create array for item params
+     *
+     * @param array $post
+     * @return array
+     */
+    public function createArrForItemParams(array $post, array $cnf): array
+    {
+        $config = $cnf;
+
+        foreach ($post as $k => $v) {
+            if (strpos($k, '@') && !empty($v)) {
+                $tmpArr = explode('@', $k);
+                $id = $tmpArr[0];
+                $type = $tmpArr[1];
+
+                foreach ($config as $key => $val) {
+                    if ($type == $key) {
+                        array_push($config[$key]['arr'], [$id, $v]);
+                    }
+                }
+            }
+        }
+        return $config;
     }
 
 }

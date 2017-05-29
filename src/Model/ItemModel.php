@@ -42,7 +42,7 @@ class ItemModel extends Model
         $result = [];
 
         for ($i = 0; $i < count($arrDB); $i++) {
-            $result[] = [$arrDB[$i]['name'], $arrDB[$i]['value'].' '.$arrDB[$i]['unit']];
+            $result[] = [$arrDB[$i]['name'], $arrDB[$i]['value'] . ' ' . $arrDB[$i]['unit']];
         }
 
         return $result;
@@ -59,6 +59,7 @@ class ItemModel extends Model
         $this->setCase('select');
         $this->setColumns(['id', 'parent_category_id', 'name', 'notice']);
         $this->table = 'category';
+        $this->setOrderBy(['name']);
 
         if (is_null($id)) {
             $this->setWhere(['parent_category_id IS NULL']);
@@ -102,6 +103,55 @@ class ItemModel extends Model
         $this->setLimit(1);
 
         return $this->executeQuery(true, true);
+    }
+
+    /**
+     * add data in EAV paramtables
+     *
+     * @param array $arr
+     * @param int $id_item
+     * @param bool $isText
+     */
+    public function addVarsEAVTable(string $tableName, array $arr, int $id_item, bool $isText = false)
+    {
+        $this->setTable($tableName);
+
+        for ($i = 0; $i < count($arr); $i++) {
+            $this->setCase('update');
+            $this->setColumns(['value']);
+
+            $value = $arr[$i][1];
+            if ($isText) $value = "'" . $value . "'";
+            $this->setValues([$value]);
+            $this->setWhere(['attribute_id = ' . $arr[$i][0], 'item_id =' . $id_item]);
+            $this->setReturning('id');
+            $return_id = $this->executeQuery(true);
+
+            if (!$return_id) {
+                $this->insert([$arr[$i][0], $id_item, $value], ['attribute_id', 'item_id', 'value']);
+                $this->executeQuery();
+            }
+        }
+    }
+
+    /**
+     * add data in EAV paramtables by create item
+     *
+     * @param string $tableName
+     * @param array $arr
+     * @param int $item_id
+     * @param bool $isText
+     */
+    public function addVarsEAVTableByCreateItem(string $tableName, array $arr, int $item_id, bool $isText = false)
+    {
+        $this->setTable($tableName);
+
+        for ($i = 0; $i < count($arr); $i++) {
+            $value = $arr[$i][1];
+            if ($isText) $value = "'" . $value . "'";
+            $this->insert([$arr[$i][0], $item_id, $value], ['attribute_id', 'item_id', 'value']);
+            $this->executeQuery();
+        }
     }
 
 }
