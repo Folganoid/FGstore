@@ -91,6 +91,16 @@ class ItemController extends Controller
                 break;
             }
         }
+
+        /**
+         * get path to image
+         */
+        if (file_exists(ROOTDIR . '/web/img/' . $item['path']) && ($item['path'])) {
+            $item['path'] = '/img/' . $item['path'];
+        } else {
+            $item['path'] = '/img/none.jpg';
+        }
+
         $this->render($this->getViewFile(ROOTDIR . '/web/pages/item_one.html.twig'), $item, $vars);
     }
 
@@ -109,7 +119,7 @@ class ItemController extends Controller
         $categories['parentName'] = $model->getCatName($params['id'])[0];
 
         if (empty($categories['parentName'])) {
-            throw new DataErrorException('Category ' . $params['id'] . ' isx not find');
+            throw new DataErrorException('Category ' . $params['id'] . ' is not find');
         }
         $this->render($this->getViewFile(ROOTDIR . '/web/pages/item_cat.html.twig'), $categories, $enhanceParams);
     }
@@ -255,9 +265,28 @@ class ItemController extends Controller
 
         $config = $this->config;
 
+        /**
+         * edit item
+         */
         if (isset($_POST['edit_item'])) {
+
+            $path = 'NULL';
+            if ($_POST['item_file']) {
+                $path = "'". $_POST['item_file'] ."'";
+            }
+            else {
+                $uploadfile = IMGDIR . basename($_FILES['file']['name']);
+                if ($_FILES['file']['name']) {
+                    $path = "'" . $_FILES['file']['name'] . "'";
+
+                    if (!move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
+                        throw new \Exception('ERROR. Can`t upload file');
+                    }
+                }
+            }
+
             $model = new ItemModel();
-            $model->update($item_id, ["'" . $_POST['item_name'] . "'", $_POST['item_parent_id'], "'" . $_POST['item_notice'] . "'"], ['name', 'category_id', 'notice']);
+            $model->update($item_id, ["'" . $_POST['item_name'] . "'", $_POST['item_parent_id'], "'" . $_POST['item_notice'] . "'", $path], ['name', 'category_id', 'notice', 'path']);
 
             $paramsArr = $this->createArrForItemParams($_POST, $config);
 
@@ -265,7 +294,9 @@ class ItemController extends Controller
                 $model->addVarsEAVTable($v['table'], $v['arr'], $item_id, $v['isText']);
             }
         }
-
+        /**
+         * delete item
+         */
         if (isset($_POST['delete_item'])) {
             $model = new ItemModel();
             $model->setTable('item');
@@ -277,6 +308,10 @@ class ItemController extends Controller
             foreach ($config as $k => $v) {
                 $model->setTable($v['table']);
                 $model->executeQuery();
+            }
+
+            if (file_exists(IMGDIR . $_POST['item_file']) && $_POST['item_file']) {
+                unlink(IMGDIR . $_POST['item_file']);
             }
         }
         new RedirectResponse(Router::getLink('item_one', ['id' => $item_id]));
@@ -292,8 +327,20 @@ class ItemController extends Controller
 // =========== Item
 
         if (isset($_POST['add_item'])) {
+
+            $uploadfile = IMGDIR . basename($_FILES['item_file']['name']);
+
+            $path = 'NULL';
+            if($_FILES['item_file']['name']) {
+                $path = "'".$_FILES['item_file']['name']."'";
+
+                if (!move_uploaded_file($_FILES['item_file']['tmp_name'], $uploadfile)) {
+                    throw new \Exception('ERROR. Can`t upload file');
+                }
+            }
+
             $model = new ItemModel();
-            $model->insert(["'" . $_POST['item_name'] . "'", $_POST['item_parent_id'], "'" . $_POST['item_notice'] . "'"], ['name', 'category_id', 'notice']);
+            $model->insert(["'" . $_POST['item_name'] . "'", $_POST['item_parent_id'], "'" . $_POST['item_notice'] . "'", $path], ['name', 'category_id', 'notice', 'path']);
             $model->setReturning('id');
             $id_item_return = $model->executeQuery(true)['id'];
 
@@ -305,6 +352,7 @@ class ItemController extends Controller
                 $model->addVarsEAVTableByCreateItem($v['table'], $v['arr'], $id_item_return, $v['isText']);
             }
             new RedirectResponse(Router::getLink('item_one', ['id' => $id_item_return]));
+
         }
 
 // =========== Attribute

@@ -28,6 +28,8 @@
             <td><b>Send date</b></td>
             <td><b>Receive date</b></td>
             <td><b>Sum</b></td>
+            <td><b>One item price</b></td>
+            <td><b>Total price</b></td>
         </tr>
 
         {% for var in orders %}
@@ -39,6 +41,10 @@
                 <td><b class="color_red">{{ var['date_send'] }}</b></td>
                 <td><b class="color_green">{{ var['date_receive'] }}</b></td>
                 <td><b>{{ var['sum'] }}</b></td>
+                <td>{{ var['value'] }} UAH</td>
+                <td><b>{{ (var['value'] * var['sum'])|round(2, 'floor') }} UAH</b></td>
+
+
             </tr>
         {% endfor %}
     </table>

@@ -1,7 +1,7 @@
 <h3 class="row cat_string1">Edit item ID#{{ id }}</h3>
 
 <div class="col-md-6">
-<form method="POST" action="{{ twigLink('item_edit_exec') }}">
+<form method="POST" action="{{ twigLink('item_edit_exec') }}" enctype="multipart/form-data">
     <table class="ordertable">
         <tr>
             <td>Name</td>
@@ -14,6 +14,11 @@
         <tr>
             <td>Notice</td>
             <td><input name="item_notice" value="{{ item['notice'] }}" required /></td>
+        </tr>
+        <tr>
+            <td>Image path</td>
+            <td><input name="item_file" value="{{ item['path'] }}" /></td>
+            <td><input name="file" type="file"></input></td>
         </tr>
     </table>
     <br>

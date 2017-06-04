@@ -79,6 +79,12 @@ return [
             "controller" => "Fg\\Controller\\ItemController",
             "action" => "itemEditExec"
         ],
+        "tree" => [
+            "pattern" => "/tree",
+            "method" => "GET",
+            "controller" => "Fg\\Controller\\TreeController",
+            "action" => "tree"
+        ],
 
 
 // ============== Order ===================

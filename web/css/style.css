@@ -46,6 +46,10 @@
     color: green;
 }
 
+.color_blue {
+    color: blue;
+}
+
 .but_marg {
     margin: 3px;
 }
@@ -89,4 +93,42 @@
     color: white;
     text-shadow: 0 0 0.2em blue, 0 0 0.2em blue, 0 0 0.2em blue;
     cursor: pointer;
+}
+
+.tree_root {
+    padding: 2px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #E0ECF8;
+    text-decoration: underline;
+}
+.tree_root_notice {
+    font-size: 20px;
+    padding: 2px;
+    background-color: #E0ECF8;
+}
+
+
+.tree_branch {
+    font-size: 16px;
+    font-weight: bold;
+}
+.tree_item {
+    padding-top: 1px;
+}
+
+.listnone {
+    list-style-type: none;
+}
+
+.star_red {
+    color: red;
+}
+
+#tree_name {
+    font-size: 20px;
+}
+
+#tree_notice {
+    font-size: 16px;
 }

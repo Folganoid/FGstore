@@ -36,7 +36,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="{{ twigLink('item_all') }}">CATALOG</a></li>
+                <li><a href="{{ twigLink('tree') }}">CATALOG</a></li>
+                <li><a href="{{ twigLink('item_all') }}">CATALOG (mob version)</a></li>
                 {% if SESSION_rank >= 8 %}
                     <li>
                         <a href="{{ twigLink('orders_all') }}">ORDERS</a>

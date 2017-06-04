@@ -74,7 +74,7 @@
 
     <h4 class="cat_string2">Add new item</h4>
     <br>
-    <form method="POST" action="{{ twigLink('item_control_exec') }}">
+    <form method="POST" action="{{ twigLink('item_control_exec') }}" enctype="multipart/form-data">
         <table class="ordertable">
             <tr>
                 <td>Name</td>
@@ -87,6 +87,10 @@
             <tr>
                 <td>Notice</td>
                 <td><textarea name="item_notice" required></textarea></td>
+            </tr>
+            <tr>
+                <td>Image</td>
+                <td><input name="item_file" type="file"></input></td>
             </tr>
         </table>
         <br>

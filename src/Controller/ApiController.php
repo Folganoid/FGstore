@@ -21,14 +21,15 @@ class ApiController extends Controller
     public function apiGetOneItem(array $params = [], array $enhanceParams = [])
     {
         $model = new ApiModel();
-        $article = $model->getOne($params['id']);
+        $model->setOrderBy(['name']);
+        $item = $model->getOne($params['id']);
         $vars = $model->getVars($params['id']);
 
-        if (empty($article) || empty($vars)) {
+        if (empty($item) || empty($vars)) {
             throw new DataErrorException(exit($params['id'] . ' : Data not find'));
         }
 
-        $json = json_encode(array_merge($vars, $article));
+        $json = json_encode(array_merge($vars, $item));
         $this->render($this->getViewFile($json));
     }
 
