@@ -1,0 +1,181 @@
+<script src="/js/item_ctrl.js"></script>
+
+<h3 class="cat_string1" align="center">ITEMS CONTROL</h3>
+<div class="col-md-6">
+    <h4 class="cat_string2">Add categories</h4>
+    <form method="POST" action="{{ twigLink('item_control_exec') }}">
+        <table border="1" align="center" class="ordertable">
+            <tr class="text-center" height="40px">
+                <td>ID</td>
+                <td>Name</td>
+                <td>Parent ID</td>
+                <td>Notice</td>
+                <td>Edit</td>
+            </tr>
+            {% for var in cats %}
+                <tr>
+                    <td class="text-center">{{ var['id'] }}</td>
+                    <td>{{ var['name'] }}</td>
+                    <td class="text-center">{{ var['parent_category_id'] }}</td>
+                    <td>{{ var['notice'] }}</td>
+                    <td><a class="btn btn-info btn-xs cat_edit" value="{{ var['id'] }}@{{ var['name'] }}@{{ var['parent_category_id'] }}@{{ var['notice'] }}" data-toggle="modal" data-target=".bs-modal-cat_edit">Edit</a></td>
+
+                </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td><input name="name" required/></td>
+                <td class="text-center"><input size="2" name="parent_id" pattern="[0-9]+"/></td>
+                <td><input name="notice"/></td>
+            </tr>
+        </table>
+        <button class="btn btn-primary but_marg" type="submit" name="add_category">Add category</button>
+    </form>
+    <br>
+    <h4 class="cat_string2">Add attributes</h4>
+    <form method="POST" action="{{ twigLink('item_control_exec') }}">
+        <table border="1" align="center" class="ordertable">
+            <tr class="text-center" height="40px">
+                <td>ID</td>
+                <td>Name</td>
+                <td>Unit</td>
+                <td>Type</td>
+                <td>Edit</td>
+            </tr>
+            {% for var in attributes %}
+                <tr>
+                    <td class="text-center">{{ var['id'] }}</td>
+                    <td>{{ var['name'] }}</td>
+                    <td>{{ var['unit'] }}</td>
+                    <td>{{ var['data_type'] }}</td>
+                    <td><a class="btn btn-info btn-xs attribute_edit" value="{{ var['id'] }}@{{ var['name'] }}@{{ var['unit'] }}@{{ var['data_type'] }}" data-toggle="modal" data-target=".bs-modal-edit">Edit</a></td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td><input size="10" name="name" required/></td>
+                <td><input name="unit"/></td>
+                <td>
+                    <select name="data_type">
+                        <option value="int">Int</option>
+                        <option value="varchar">Varchar</option>
+                        <option value="double">Double</option>
+                        <option value="date">Date</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <button class="btn btn-primary but_marg" type="submit" name="add_attribute">Add attribute</button>
+    </form>
+    <br>
+</div>
+
+<div class="col-md-6">
+
+    <h4 class="cat_string2">Add new item</h4>
+    <br>
+    <form method="POST" action="{{ twigLink('item_control_exec') }}" enctype="multipart/form-data">
+        <table class="ordertable">
+            <tr>
+                <td>Name</td>
+                <td><input name="item_name" required/></td>
+            </tr>
+            <tr>
+                <td>Parent ID</td>
+                <td><input name="item_parent_id" required pattern="[0-9]+"/></td>
+            </tr>
+            <tr>
+                <td>Notice</td>
+                <td><textarea name="item_notice" required></textarea></td>
+            </tr>
+            <tr>
+                <td>Image</td>
+                <td><input name="item_file" type="file"></input></td>
+            </tr>
+        </table>
+        <br>
+        <table align="center" border="1" class="ordertable">
+            <tr class="text-center" height="40px">
+                <td>Name</td>
+                <td>Data type</td>
+                <td>Units</td>
+                <td>Value</td>
+            </tr>
+            {% for var in attributes %}
+                <tr>
+                    <td>{{ var['name'] }}</td>
+                    <td>{{ var['data_type'] }}</td>
+                    <td>{{ var['unit'] }}</td>
+                    <td><input name="{{ var['id'] }}@{{ var['data_type'] }}"/></td>
+                </tr>
+            {% endfor %}
+        </table>
+        <button class="btn btn-primary but_marg" type="submit" name="add_item">Add item</button>
+    </form>
+</div>
+
+{# ===================== attribute edit modal #}
+
+<div class="modal fade bs-modal-edit" tabindex="-1" role="dialog" aria-labelledby="mySystemModalLabel">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header back1">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center" id="gridSystemModalLabel">Edit attribute <span class="attr_id"></span></h4>
+            </div>
+            <br>
+            <div class="center-block text-center">
+                <form method="POST" action="{{ twigLink('attribute_edit') }}">
+                    <span class="attr_id"></span>
+                    <input class="attr_id" type="hidden" name="id" />
+                    <input name="name" id="attr_name" />
+                    <input name="unit" id="attr_unit" />
+                    <span id="attr_type"></span>
+                    <br><br>
+                    <button class="btn btn-primary" type="submit">Apply changes</button>
+                </form>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
+
+{# ===================== category edit modal #}
+
+<div class="modal fade bs-modal-cat_edit" tabindex="-1" role="dialog" aria-labelledby="mySystemModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header back1">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center" id="gridSystemModalLabel">Edit category <span class="cat_id"></span></h4>
+            </div>
+            <br>
+            <div class="center-block text-center">
+                <form method="POST" action="{{ twigLink('category_edit') }}">
+
+                    <table class="ordertable">
+                        <tr>
+                            <td>Name:</td>
+                            <td><input name="cat_name" id="cat_name" /></td>
+                        </tr>
+                        <tr>
+                            <td>Parrent ID:</td>
+                            <td><input name="cat_parent" id="cat_parent" /></td>
+                        </tr>
+                        <tr>
+                            <td>Notice:</td>
+                            <td><input name="cat_notice" id="cat_notice" /></td>
+                        </tr>
+                    </table>
+                    <br>
+                    <input type="hidden" name="cat_id" class="cat_id" />
+                    <button class="btn btn-primary" type="submit">Apply changes</button>
+                </form>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
+

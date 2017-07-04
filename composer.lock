@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Folganoid/FGframe.git",
-                "reference": "2bcae724b28aae2e6f2d5adac2570fdb9872c7ce"
+                "reference": "87d8cd723fda23038dfd0b5e870b7d1a063299ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Folganoid/FGframe/zipball/2bcae724b28aae2e6f2d5adac2570fdb9872c7ce",
-                "reference": "2bcae724b28aae2e6f2d5adac2570fdb9872c7ce",
+                "url": "https://api.github.com/repos/Folganoid/FGframe/zipball/87d8cd723fda23038dfd0b5e870b7d1a063299ec",
+                "reference": "87d8cd723fda23038dfd0b5e870b7d1a063299ec",
                 "shasum": ""
             },
             "type": "library",
@@ -40,7 +40,7 @@
                 "source": "https://github.com/Folganoid/FGframe/tree/master",
                 "issues": "https://github.com/Folganoid/FGframe/issues"
             },
-            "time": "2017-03-10 13:17:34"
+            "time": "2017-03-20 18:13:35"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -107,12 +107,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "ea2ca30d004a1721b739a1d70e5998f3feb66342"
+                "reference": "4d40c66dbcf5df34d084ee7240efdab5c0c14ca2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/ea2ca30d004a1721b739a1d70e5998f3feb66342",
-                "reference": "ea2ca30d004a1721b739a1d70e5998f3feb66342",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/4d40c66dbcf5df34d084ee7240efdab5c0c14ca2",
+                "reference": "4d40c66dbcf5df34d084ee7240efdab5c0c14ca2",
                 "shasum": ""
             },
             "require": {
@@ -162,7 +162,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-03-12 15:30:20"
+            "time": "2017-03-20 16:12:13"
         }
     ],
     "packages-dev": [],

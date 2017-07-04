@@ -1,0 +1,30 @@
+<script src="/js/order_edit.js"></script>
+
+<h3 class="cat_string1 row">ORDER CONTROL ID#{{ id }}</h3>
+<br>
+<form method="POST" action="{{ twigLink('order_edit_exec') }}">
+    <table class="ordertable">
+        <tr>
+            <td><b>Order status : </b></td>
+            <td><input id="order_status" name="status" value="{{ status }}"/></td>
+        </tr>
+        <tr>
+            <td><b>Send date : </b></td>
+            <td><input id="order_send_date" name="send" value="{{ date_send }}"/></td>
+            <td>
+                <button class="btn btn-sm btn-primary" type="button" id="but_fill_send">Fill to SEND</button>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Receive date : </b></td>
+            <td><input id="order_rec_date" name="receive" value="{{ date_receive }}"/></td>
+            <td>
+                <button class="btn btn-sm btn-primary" type="button" id="but_fill_rec">Fill to RECEIVE</button>
+            </td>
+        </tr>
+    </table>
+    <input name="id" type="hidden" value="{{ id }}"/>
+    <br>
+    <button class="btn btn-primary" type="submit" name="edit">Apply changes</button>
+    <button class="btn btn-danger" type="submit" name="delete">Delete order</button>
+</form>

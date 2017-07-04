@@ -1,19 +1,134 @@
-#head {
-    background-color: grey;
+.footer {
     color: white;
     position: fixed;
-    top: 0%;
+    bottom: 0px;
+    background-color: #2E2E2E;
+    font-size: 12px;
     width: 100%;
 }
 
-#content {
-    padding-top: 50px;
+.error h1 {
+    color: red;
+    text-align: center;
 }
 
-#footer {
-    background-color: grey;
+.error h2 {
+    color: darkred;
+    text-align: center;
+}
+
+.ordertable tr td {
+    padding: 5px;
+}
+
+.modal {
+    padding-top: 2%;
+}
+
+.basket_row {
+    background-color: #e8e8e8;
+}
+
+.baskettable tr td {
+    padding: 5px;
+}
+
+.price {
+    font-weight: bold;
+    color: darkred;
+}
+
+.color_red {
+    color: red;
+}
+
+.color_green {
+    color: green;
+}
+
+.color_blue {
+    color: blue;
+}
+
+.but_marg {
+    margin: 3px;
+}
+
+.poster {
+    text-align: center;
+    margin-top: 15%;
+
+}
+
+.catalog tr td {
+    padding: 1px;
+}
+
+.cat_string1 {
+    padding: 3px;
+    background-color: #CEE3F6;
+}
+
+.cat_string2 {
+    padding: 3px;
+    background-color: #E0ECF8;
+}
+
+#basket {
+    color: #fff;
+}
+
+.back1 {
+    background: #CEE3F6;
+    border-radius: 5px;
+
+}
+
+#sum {
+    font-size: 26px;
+    color: #0080FF;
+}
+
+.arrow:hover  {
     color: white;
-    position: fixed;
-    bottom: 0%;
-    width: 100%;
+    text-shadow: 0 0 0.2em blue, 0 0 0.2em blue, 0 0 0.2em blue;
+    cursor: pointer;
+}
+
+.tree_root {
+    padding: 2px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #E0ECF8;
+    text-decoration: underline;
+}
+.tree_root_notice {
+    font-size: 20px;
+    padding: 2px;
+    background-color: #E0ECF8;
+}
+
+
+.tree_branch {
+    font-size: 16px;
+    font-weight: bold;
+}
+.tree_item {
+    padding-top: 1px;
+}
+
+.listnone {
+    list-style-type: none;
+}
+
+.star_red {
+    color: red;
+}
+
+#tree_name {
+    font-size: 20px;
+}
+
+#tree_notice {
+    font-size: 16px;
 }

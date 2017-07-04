@@ -1,35 +1,27 @@
-<script src="/js/item_one.js"></script>
-
-<h3 class="row cat_string1"><b>{{ name }}</b><i> ({{ notice }})</i></h3>
-
-<div class="col-lg-4 col-md-6 col-xs-12">
-    <ul>
-        <li><b>Item № {{ id }}</b></li>
-        {% for var in params %}
-            {% if var[0] == 'Price' %}
-            {% else %}
-                <li>{{ var[0] }}: {{ var[1] }}</li>
-            {% endif %}
-        {% endfor %}
-    </ul>
-    <h4><b>Price: {{ Price }}</b></h4>
+<script src="/js/tree.js"></script>
+<div id="tree_item_show" class="hide">
+<div class="col-lg-6 col-md-6 col-xs-12">
+    <p class="row cat_string1"><b><span id="tree_name"></span></b><i> (<span id="tree_notice"></span>)</i></p>
+    <b>Item № <span id="tree_id"></span></b>
+    <ul id="tree_list"></ul>
+    <h4><b>Price: <span id="tree_price"></span></b></h4>
     <br>
-    <img class="img-responsive" src="{{ path }}"/>
+    <div align="center"><img class="img-responsive" style="max-height: 300px;" id="tree_image" src="" /></div>
     <br>
-
+    <div align="center">
     {% if SESSION_id == false %}
         <h4 class="color_red">Only registered user can buy item!</h4>
     {% elseif SESSION_id %}
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Buy right
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm">Buy right
             now
         </button>
 
         {% if SESSION_rank >= 8 %}
-            <a class="btn btn-warning" href="{{ twigLink('item_edit', {'id': id}) }}">Edit item</a>
+            <a class="btn btn-warning" id="tree_edit" href="#">Edit item</a>
         {% endif %}
     {% endif %}
+    </div>
 </div>
-<div class="col-lg-8 col-md-6 col-xs-12"></div>
 
 {# ========== buy item confirm modal #}
 
@@ -48,11 +40,11 @@
                     <b id="sum">1</b>
                     <span id="arrow_right" class="glyphicon glyphicon-menu-right arrow"></span></h4></div>
             <br>
-            <button id="item_buy" class="btn btn-primary center-block" sum="1" value="{{ id }}">Add to my
+            <button id="item_buy" class="btn btn-primary center-block" sum="1" value="">Add to my
                 basket
             </button>
             <br>
         </div>
     </div>
 </div>
-
+</div>

@@ -1,14 +1,148 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>The best store</title>
+
+    <!-- Bootstrap & Jquery -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <script src="/js/jquery-3.2.0.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/common.js"></script>
+
+    <!-- my css -->
     <link href="/css/style.css" rel="stylesheet">
-
-    <title>Best store</title>
 </head>
-
 <body>
 
-<div id="head"><h4>HEAD</h4></div>
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ twigLink('index') }}"><span
+                        class="glyphicon glyphicon-home"></span></a>
+        </div>
 
-<div id="content">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ twigLink('tree') }}">CATALOG</a></li>
+                <li><a href="{{ twigLink('item_all') }}">CATALOG (mob version)</a></li>
+                {% if SESSION_rank >= 8 %}
+                    <li>
+                        <a href="{{ twigLink('orders_all') }}">ORDERS</a>
+                    </li>
+                {% endif %}
+
+                {% if SESSION_rank >= 8 %}
+                    <li>
+                        <a href="{{ twigLink('item_control') }}">DATA CONTROL</a>
+                    </li>
+                {% endif %}
+
+                {% if SESSION_rank >= 10 %}
+                    <li>
+                        <a href="{{ twigLink('client_all') }}">CLIENTS</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+                {% if SESSION_id %}
+                    <li style="width: 150px">
+                        <p id="bsktvar" class="hidden">{{ SESSION_id }}</p>
+                        <a align="left" href="{{ twigLink('basket') }}"><span
+                                    class="glyphicon glyphicon-shopping-cart"></span>
+                            BASKET <span id="basket"></span></a>
+                    </li>
+                {% endif %}
+
+                <li>
+                    {% if not SESSION_id %}
+                        <a data-toggle="modal" data-target=".bs-modal-login">LOGIN</a>
+                    {% else %}
+                        <a href="{{ twigLink('client_one', {'id': SESSION_id}) }}">
+                            <span class="glyphicon glyphicon-user"></span> {{ SESSION_login }}</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+{# ========== Login Modal#}
+
+<div class="modal fade bs-modal-login" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header back1">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center" id="gridSystemModalLabel">Sign In please</h4>
+            </div>
+            <br>
+            <form class="text-center" method="POST" action="{{ twigLink('auth') }}">
+                <input type="text" name="login" placeholder="Login"/>
+                <br><br>
+                <input align="center" type="password" name="pass" placeholder="Password"/>
+                <br><br>
+                <button class="btn btn-primary" type="submit">Sign In</button>
+                or
+                <a data-toggle="modal" data-target=".bs-modal-reg"> Registration</a>
+            </form>
+            <br>
+        </div>
+    </div>
+</div>
+
+{# ========== registration Modal#}
+
+<div class="modal fade bs-modal-reg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header back1">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-center" id="gridSystemModalLabel">Registration</h4>
+            </div>
+            <br>
+            <form class="text-center" method="POST" action="{{ twigLink('reg') }}">
+                <input name="name" placeholder="Name" pattern="[A-za-zА-Яа-я]{3,15}" title="3-15 letters"
+                       required/><span class="color_red"> *</span>
+                <br><br>
+                <input name="surname" placeholder="Surname" pattern="[A-za-zА-Яа-я]{3,15}" title="3-15 letters"
+                       required/><span class="color_red"> *</span>
+                <br><br>
+                <input name="login" placeholder="Login" pattern="[A-za-z0-9А-Яа-я]{3,15}" title="3-15 letters or digits"
+                       required/><span class="color_red"> *</span>
+                <br><br>
+                <input id="reg_pass_1" type="password" name="pass" placeholder="Password" required/><span class="color_red"> *</span>
+                <br><br>
+                <input id="reg_pass_2" type="password" name="pass2" placeholder="Confirm Password" required/><span class="color_red"> *</span>
+                <br><br>
+                <input name="email" placeholder="email" pattern="[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})" required/><span class="color_red"> *</span>
+                <br><br>
+                <input name="tel" placeholder="Tel.number" pattern="[0-9]+" title="Digits only" required/><span
+                        class="color_red"> *</span>
+                <br><br>
+                <textarea name="address" rows="3" placeholder="Address"></textarea>
+                <br>
+                <h6 id="reg_pass_msg" class="color_red">&nbsp;</h6>
+                <button id="reg_but_submit" class="btn btn-primary" type="submit">Apply</button>
+            </form>
+            <br>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="content">

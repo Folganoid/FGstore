@@ -1,0 +1,29 @@
+<h3 class="cat_string1">CLIENTS</h3>
+<br>
+<table align="center" border="1" class="ordertable text-center">
+    <tr align="center" height="40px">
+        <td><b>ID</b></td>
+        <td><b>Client name</b></td>
+        <td><b>email</b></td>
+        <td><b>login</b></td>
+        <td><b>Tel.number</b></td>
+        <td><b>Address</b></td>
+        <td><b>Rank</b></td>
+        <td><b>Notice</b></td>
+    </tr>
+
+
+    {% for var in clients %}
+        <tr>
+            <td>{{ var['id'] }}</td>
+            <td align="left"><a href="{{ twigLink('client_one', {'id': var['id']}) }}"><b>{{ var['name'] }} {{ var['surname'] }}</b></a>
+            </td>
+            <td>{{ var['email'] }}</td>
+            <td align="left"><b>{{ var['login'] }}</b></td>
+            <td>{{ var['telnumber'] }}</td>
+            <td>{{ var['address'] }}</td>
+            <td>{{ var['rank'] }}</td>
+            <td>{{ var['notice'] }}</td>
+        </tr>
+    {% endfor %}
+</table>
